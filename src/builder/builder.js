@@ -17,47 +17,47 @@ module.exports = {
         let sqlStatement = 'SELECT * FROM users';
 
         if (experience) {
-            sqlStatement += ` WHERE experience=${experience} AND`;
+            sqlStatement += ` WHERE experience="${experience}" AND`;
         };
 
         if (qualifications) {
-            sqlStatement += ` WHERE qualifications=${qualifications} AND`;
+            sqlStatement += ` WHERE qualifications="${qualifications}" AND`;
         };
 
         if (year_joined) {
-            sqlStatement += ` WHERE year_joined=${year_joined} AND`;
+            sqlStatement += ` WHERE year_joined="${year_joined}" AND`;
         };
 
         if (location) {
-            sqlStatement += ` WHERE location=${location} AND`;
+            sqlStatement += ` WHERE location="${location}" AND`;
         };
 
         if (ou) {
-            sqlStatement += ` WHERE ou=${ou} AND`;
+            sqlStatement += ` WHERE ou="${ou}" AND`;
         };
 
         if (contact_info) {
-            sqlStatement += ` WHERE contact_info=${contact_info} AND`;
+            sqlStatement += ` WHERE contact_info="${contact_info}" AND`;
         };
 
         if (grade) {
-            sqlStatement += ` WHERE grade=${grade} AND`;
+            sqlStatement += ` WHERE grade="${grade}" AND`;
         };
 
         if (skills) {
-            sqlStatement += ` WHERE skills=${skills} AND`;
+            sqlStatement += ` WHERE skills="${skills}" AND`;
         };
 
         if (insight_colour) {
-            sqlStatement += ` WHERE insight_colour=${insight_colour} AND`;
+            sqlStatement += ` WHERE insight_colour="${insight_colour}" AND`;
         };
 
         if (current_project) {
-            sqlStatement += ` WHERE current_project=${current_project} AND`;
+            sqlStatement += ` WHERE current_project="${current_project}" AND`;
         };
 
         if (availability) {
-            sqlStatement += ` WHERE availability=${availability} AND`;
+            sqlStatement += ` WHERE availability="${availability}" AND`;
         };
 
         let sqlToRun;
