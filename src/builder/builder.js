@@ -1,7 +1,7 @@
 const connection = require('../../databaseConfig.js').connection;
 
 module.exports = {
-    filterUser(desiredQualities) {
+    getStatement(desiredQualities) {
         const experience = desiredQualities.experience;
         const qualifications = desiredQualities.qualifications;
         const year_joined = desiredQualities.year_joined;
@@ -64,8 +64,20 @@ module.exports = {
 
         if (sqlStatement.endsWith('AND')) {
             sqlToRun = sqlStatement.slice(0, -4);
+        } else {
+            sqlToRun = sqlStatement;
         };
 
         sqlToRun += ';';
+
+        return sqlToRun;
+    },
+
+    async getPossibleUsers(sqlStatement, callback) {
+        connection.query(sqlStatement, (err, result) => {
+            if (err) { throw err; };
+
+            callback(result);
+        });
     },
 };
