@@ -14,56 +14,58 @@ module.exports = {
         const current_project = desiredQualities.current_project;
         const availability = desiredQualities.availability;
 
-        let sqlStatement = 'SELECT * FROM users';
+        let sqlStatement = 'SELECT * FROM users WHERE';
 
         if (experience) {
-            sqlStatement += ` WHERE experience="${experience}" AND`;
+            sqlStatement += ` experience="${experience}" AND`;
         };
 
         if (qualifications) {
-            sqlStatement += ` WHERE qualifications="${qualifications}" AND`;
+            sqlStatement += ` qualifications="${qualifications}" AND`;
         };
 
         if (year_joined) {
-            sqlStatement += ` WHERE year_joined="${year_joined}" AND`;
+            sqlStatement += ` year_joined="${year_joined}" AND`;
         };
 
         if (location) {
-            sqlStatement += ` WHERE location="${location}" AND`;
+            sqlStatement += ` location="${location}" AND`;
         };
 
         if (ou) {
-            sqlStatement += ` WHERE ou="${ou}" AND`;
+            sqlStatement += ` ou="${ou}" AND`;
         };
 
         if (contact_info) {
-            sqlStatement += ` WHERE contact_info="${contact_info}" AND`;
+            sqlStatement += ` contact_info="${contact_info}" AND`;
         };
 
         if (grade) {
-            sqlStatement += ` WHERE grade="${grade}" AND`;
+            sqlStatement += ` grade="${grade}" AND`;
         };
 
         if (skills) {
-            sqlStatement += ` WHERE skills="${skills}" AND`;
+            sqlStatement += ` skills="${skills}" AND`;
         };
 
         if (insight_colour) {
-            sqlStatement += ` WHERE insight_colour="${insight_colour}" AND`;
+            sqlStatement += ` insight_colour="${insight_colour}" AND`;
         };
 
         if (current_project) {
-            sqlStatement += ` WHERE current_project="${current_project}" AND`;
+            sqlStatement += ` current_project="${current_project}" AND`;
         };
 
         if (availability) {
-            sqlStatement += ` WHERE availability="${availability}" AND`;
+            sqlStatement += ` availability="${availability}" AND`;
         };
 
         let sqlToRun;
 
         if (sqlStatement.endsWith('AND')) {
             sqlToRun = sqlStatement.slice(0, -4);
+        } else if (sqlStatement.endsWith('WHERE')) {
+            sqlToRun = sqlStatement.slice(0, -6);
         } else {
             sqlToRun = sqlStatement;
         };
