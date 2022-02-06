@@ -3,7 +3,8 @@ const path = require('path');
 const { readFile } = require('fs').promises;
 const { 
     getStatement,
-    getPossibleUsers
+    getPossibleUsers,
+    createUser
 } = require('../src/builder/builder.js');
 
 router.get('/', async (req, res, next) => {
@@ -15,6 +16,16 @@ router.post('/', async (req, res, next) => {
 
     const jsonQuery = await getPossibleUsers(sqlStatement, (result) => {
         res.send(JSON.stringify(result));
+    });
+});
+
+router.post('/create', async (req, res, next) => {
+    createUser(req.body, (result) => {
+         if (result) {
+            res.status(201).send();
+        } else {
+            res.status(400).send();
+        };
     });
 });
 

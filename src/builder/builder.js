@@ -10,7 +10,6 @@ module.exports = {
         const contact_info = desiredQualities.contact_info;
         const grade = desiredQualities.grade;
         const skills = desiredQualities.skills;
-        const insight_colour = desiredQualities.insight_colour;
         const current_project = desiredQualities.current_project;
         const availability = desiredQualities.availability;
 
@@ -48,10 +47,6 @@ module.exports = {
             sqlStatement += ` skills="${skills}" AND`;
         };
 
-        if (insight_colour) {
-            sqlStatement += ` insight_colour="${insight_colour}" AND`;
-        };
-
         if (current_project) {
             sqlStatement += ` current_project="${current_project}" AND`;
         };
@@ -81,5 +76,27 @@ module.exports = {
 
             callback(result);
         });
+    },
+
+    async createUser(qualities, callback) {
+        const name = qualities.name
+        const experience = qualities.experience;
+        const qualifications = qualities.qualifications;
+        const year_joined = qualities.year_joined;
+        const location = qualities.location;
+        const ou = qualities.ou;
+        const contact_info = qualities.contact_info;
+        const grade = qualities.grade;
+        const skills = qualities.skills;
+        const current_project = qualities.current_project;
+        const availability = qualities.availability;
+
+        try {
+            connection.execute(`INSERT INTO users (name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability], (err, result) => {
+                callback(result);
+            });
+        } catch (e) {
+            callback(undefined);
+        };
     },
 };
