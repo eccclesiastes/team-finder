@@ -99,4 +99,75 @@ module.exports = {
             callback(undefined);
         };
     },
+
+    getUpdateStatement(qualities) {
+        const name = qualities.name
+        const newExperience = qualities.experience;
+        const newQualifications = qualities.qualifications;
+        const newLocation = qualities.location;
+        const newOu = qualities.ou;
+        const newContact_info = qualities.contact_info;
+        const newGrade = qualities.grade;
+        const newSkills = qualities.skills;
+        const newCurrent_project = qualities.current_project;
+        const newAvailability = qualities.availability;
+
+        let sqlStatement = 'UPDATE users SET';
+
+        if (name === undefined) {
+            return 1;
+        } 
+
+        if (newExperience) {
+            sqlStatement += ` experience="${newExperience}",`;
+        };
+
+        if (newQualifications) {
+            sqlStatement += ` qualifications="${newQualifications}",`;
+        };
+
+        if (newLocation) {
+            sqlStatement += ` location="${newLocation}",`;
+        };
+
+        if (newOu) {
+            sqlStatement += ` ou="${newOu}",`;
+        };
+
+        if (newContact_info) {
+            sqlStatement += ` contact_info="${newContact_info}",`;
+        };
+
+        if (newGrade) {
+            sqlStatement += ` grade="${newGrade}",`;
+        };
+
+        if (newSkills) {
+            sqlStatement += ` skills="${newSkills}",`;
+        };
+
+        if (newCurrent_project) {
+            sqlStatement += ` current_project="${newCurrent_project}",`;
+        };
+
+        if (newAvailability) {
+            sqlStatement += ` availability="${newAvailability}",`;
+        };
+
+        let sqlToRun;
+
+        if (sqlStatement.endsWith('SET')) {
+            return 1;
+        } else if (sqlStatement.endsWith(',')) {
+            sqlToRun = sqlStatement.slice(0, -1);
+        } else {
+            sqlToRun = sqlStatement;
+        };
+
+        sqlToRun += ` WHERE name="${name}"`
+
+        sqlToRun += ';';
+
+        return sqlToRun;
+    },
 };
