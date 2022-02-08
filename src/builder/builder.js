@@ -70,7 +70,7 @@ module.exports = {
         return sqlToRun;
     },
 
-    async getPossibleUsers(sqlStatement, callback) {
+    getPossibleUsers(sqlStatement, callback) {
         connection.query(sqlStatement, (err, result) => {
             if (err) { throw err; };
 
@@ -78,7 +78,7 @@ module.exports = {
         });
     },
 
-    async createUser(qualities, callback) {
+    createUser(qualities, callback) {
         const name = qualities.name
         const experience = qualities.experience;
         const qualifications = qualities.qualifications;
@@ -169,5 +169,15 @@ module.exports = {
         sqlToRun += ';';
 
         return sqlToRun;
+    },
+
+    updateUser(sqlStatement, callback) {
+        try {
+            connection.query(sqlStatement, (err, result) => {
+                callback(result);
+            });
+        } catch (e) {
+            callback(undefined);
+        }
     },
 };
