@@ -13,7 +13,11 @@ router.get('/', async (req, res, next) => {
     const sqlStatement = getStatement(req.body);
 
     const jsonQuery = getPossibleUsers(sqlStatement, (result) => {
-        res.send(JSON.stringify(result));
+        if (result) {
+            res.send(JSON.stringify(result));
+        } else {
+            res.status(404).send();
+        };
     });
 });
 

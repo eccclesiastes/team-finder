@@ -74,7 +74,11 @@ module.exports = {
         connection.query(sqlStatement, (err, result) => {
             if (err) { throw err; };
 
-            callback(result);
+            if (result.length === 0) {
+                callback(undefined);
+            } else {
+                callback(result);
+            }
         });
     },
 
