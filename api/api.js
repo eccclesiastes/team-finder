@@ -10,6 +10,10 @@ const {
 } = require('../src/builder/builder.js');
 
 router.get('/', async (req, res, next) => {
+    res.send(await readFile('./index.html', 'utf-8'));
+});
+
+router.post('/', async (req, res, next) => {
     const sqlStatement = getStatement(req.body);
 
     const jsonQuery = getPossibleUsers(sqlStatement, (result) => {
