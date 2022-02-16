@@ -35,6 +35,10 @@
                 height: 150% !important;
                 width: 150% !important;
             }
+
+            #submit {
+                margin-top: 20px;
+            }
         </style>
     </head>
 
@@ -79,18 +83,6 @@
             </form>
         </div>
 
-        <script>
-            const submitButton = document.getElementById('submit');
-
-            submitButton.addEventListener('click', () => {
-                document.getElementById('resultH1').hidden = false;
-            });
-        </script>
-
-        <div id="result" hidden="true">
-            <h1 id="resultH1">Results</h1>
-            <br>
-            <p>placeholder</p>
-        </div>
+        <script src="./api/api.js"></script>
     </body>
 </html>
