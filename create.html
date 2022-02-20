@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Look for team members!</title>
+        <link href="style.css" rel="stylesheet" type="text/html">
+        <style>
+            h1 {
+                text-align: center;
+                background-color: rgb(51,51,51);
+                color: white;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                margin-block-end: 0px;
+                margin-block-start: 0px;
+            }
+
+            body {
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                margin: 0;
+            }
+
+            #form {
+                padding-left: 45%;
+                padding-right: 55%;
+                padding-top: 2%;
+            }
+
+            label {
+                width: 20%;
+            }
+
+            #year-label, #project-label {
+                height: 150% !important;
+                width: 150% !important;
+            }
+
+            #submit {
+                margin-top: 20px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            #buttons {
+                margin-left: 46%;
+                margin-top: 1%;
+            }
+
+            button {
+                height: 50px;
+                width: 140px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <h1>Team Finder!</h1>
+        </div>
+
+        <div id="buttons">
+            <button id="create" hidden>Change to create</button>
+            <button id="update">Change to update</button>
+        </div>
+
+        <div id="create-form">
+            <h2>Create</h2>
+            <form method="post" id="form">
+                <label for="name">Name</label>
+                <input name="createName" type="text" id="name" required>
+
+                <label for="experience">Experience</label>
+                <input name="experience" type="text" id="experience">
+
+                <label for="qualifications">Qualifications</label>
+                <input name="qualifications" type="text" id="qualifications">
+
+                <label for="year_joined" id="year-label">Year Joined</label>
+                <input name="year_joined" type="number" id="year_joined" required>
+
+                <label for="location">Location</label>
+                <input name="location" type="text" id="location" required>
+
+                <label for="ou">OU</label>
+                <input name="ou" type="text" id="ou" required>
+
+                <label for="contact_info">Contact</label>
+                <input name="contact_info" type="text" id="contact_info" required>
+
+                <label for="grade">Grade</label>
+                <input name="grade" type="text" id="grade" required>
+
+                <label for="skills">Skills</label>
+                <input name="skills" type="text" id="skills" required>
+
+                <label for="current_project" id="project-label">Current Project</label>
+                <input name="current_project" type="text" id="current_project" required>
+
+                <label for="availability">Availability</label>
+                <input name="availability" type="text" id="availability" required>
+
+                <input type="submit" id="submit">
+            </form>
+        </div>
+
+        <div hidden id="update-form">
+            <h2>Update</h2>
+            <form method="post" id="form">
+                <label for="name">Name</label>
+                <input name="updateName" type="text" id="name" required>
+
+                <label for="experience">Experience</label>
+                <input name="experience" type="text" id="experience">
+
+                <label for="qualifications">Qualifications</label>
+                <input name="qualifications" type="text" id="qualifications">
+
+                <label for="year_joined" id="year-label">Year Joined</label>
+                <input name="year_joined" type="number" id="year_joined">
+
+                <label for="location">Location</label>
+                <input name="location" type="text" id="location">
+
+                <label for="ou">OU</label>
+                <input name="ou" type="text" id="ou">
+
+                <label for="contact_info">Contact</label>
+                <input name="contact_info" type="text" id="contact_info">
+
+                <label for="grade">Grade</label>
+                <input name="grade" type="text" id="grade">
+
+                <label for="skills">Skills</label>
+                <input name="skills" type="text" id="skills">
+
+                <label for="current_project" id="project-label">Current Project</label>
+                <input name="current_project" type="text" id="current_project">
+
+                <label for="availability">Availability</label>
+                <input name="availability" type="text" id="availability">
+
+                <input type="submit" id="submit">
+            </form>
+
+            <br>
+            <br>
+        </div>
+
+        <script>
+            const create = document.getElementById('create-form');
+            const update = document.getElementById('update-form');
+            const createButton = document.getElementById('create');
+            const updateButton = document.getElementById('update');
+
+            const createClick = () => {
+                update.hidden = true;
+                createButton.hidden = true;
+                create.hidden = false;
+                updateButton.hidden = false;
+            };
+
+            const updateClick = () => {
+                create.hidden = true;
+                updateButton.hidden = true;
+                update.hidden = false;
+                createButton.hidden = false;
+            };
+
+            createButton.addEventListener('click', createClick);
+            updateButton.addEventListener('click', updateClick);
+        </script>
+
+        <h4 hidden="true" style="color: red; text-align: center;">Error, please check if name of person exists in database</h4>
+        <h4 hidden="yes" style="color: green; text-align: center;">Success - <a href="/">back to home</a></h4>
+    </body>
+</html>
