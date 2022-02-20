@@ -83,7 +83,7 @@ module.exports = {
     },
 
     createUser(qualities, callback) {
-        const name = qualities.name
+        const name = qualities.createName
         const experience = qualities.experience;
         const qualifications = qualities.qualifications;
         const year_joined = qualities.year_joined;
@@ -105,7 +105,7 @@ module.exports = {
     },
 
     getUpdateStatement(qualities) {
-        const name = qualities.name
+        const name = qualities.updateName
         const newExperience = qualities.experience;
         const newQualifications = qualities.qualifications;
         const newLocation = qualities.location;
