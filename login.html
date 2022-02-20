@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Look for team members!</title>
+        <link href="style.css" rel="stylesheet" type="text/html">
+        <style>
+            h1 {
+                text-align: center;
+                background-color: rgb(51,51,51);
+                color: white;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                margin-block-end: 0px;
+                margin-block-start: 0px;
+            }
+
+            body {
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                margin: 0;
+            }
+
+            #form {
+                padding-left: 45%;
+                padding-right: 55%;
+                padding-top: 2%;
+            }
+
+            label {
+                width: 20%;
+            }
+
+            #submit {
+                margin-top: 20px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <h1>Team Finder!</h1>
+        </div>
+
+        <div>
+        <h2>Login</h2>
+            <form method="post" id="form">
+                <label for="username">Username</label>
+                <input name="username" type="text" id="username">
+
+                <label for="password">Password</label>
+                <input name="password" type="password" id="password">
+
+                <input type="submit" id="submit">
+            </form>
+        </div>
+    </body>
+</html>
