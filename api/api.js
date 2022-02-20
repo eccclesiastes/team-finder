@@ -24,81 +24,13 @@ router.get('/login', async (req, res, next) => {
 router.post('/search', async (req, res, next) => {
     const sqlStatement = getStatement(req.body);
 
-    const jsonQuery = getPossibleUsers(sqlStatement, (result) => {
-        let html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>Results!</title>
-            <style>
-            h1 {
-                text-align: center;
-                background-color: rgb(51,51,51);
-                color: white;
-                padding-top: 25px;
-                padding-bottom: 25px;
-                margin-block-end: 0px;
-                margin-block-start: 0px;
-            }
-
-            body {
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                margin: 0;
-            }
-
-            #form {
-                padding-left: 45%;
-                padding-right: 55%;
-                padding-top: 2%;
-            }
-
-            label {
-                width: 20%;
-            }
-
-            #year-label, #project-label {
-                height: 150% !important;
-                width: 150% !important;
-            }
-
-            #submit {
-                margin-top: 20px;
-            }
-
-            table {
-                margin-left: 15%;
-                margin-right: 18%;
-            }
-
-            tr, td {
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-            </style>
-        </head>
-        <h1>Result</h1>
-        <br>
-        <div class="table">
-            <table class="results" style="border: 1px solid black">
-                <tr>
-                    <th>Name</th>
-                    <th>Experience</th>
-                    <th>Qualifications</th>
-                    <th>Year Joined</th>
-                    <th>Location</th>
-                    <th>OU</th>
-                    <th>Contact</th>
-                    <th>Grade</th>
-                    <th>Skills</th>
-                    <th>Current Project</th>
-                    <th>Availability</th>
-                </tr>
-        `;
+    const jsonQuery = getPossibleUsers(sqlStatement, async (result) => {
+        const html = await readFile('./result.html', 'utf-8');
+        let results = '';
 
         if (result) {
             for (let i = 0; i < result.length; i++) {
-                html += `
+                results += `
                 <tr>
                     <td>${result[i].name}</td>
                     <td>${result[i].experience}</td>
@@ -114,39 +46,67 @@ router.post('/search', async (req, res, next) => {
                 </tr>
                 `
             };
-
-            html += `</table></div></body></html>`
-
-            res.send(html);
+        
+        const replacedHtml = html.replace('placeholder', results);
+        
+        res.send(replacedHtml);
         } else {
             res.status(404).send(`<style>body {margin: 0;}</style><h1 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; margin: 0 !important; text-align: center; background-color: rgb(51,51,51); color: white; padding-top: 25px; padding-bottom: 25px; margin-block-end: 0px !important; margin-block-start: 0px !important;">No results found</h1>`);
         };
     });
 });
 
-router.post('/create', async (req, res, next) => {
-    createUser(req.body, (result) => {
-         if (result) {
-            res.status(201).send(JSON.stringify(result));
-        } else {
-            res.status(400).send();
-        };
-    });
-});
+router.post('/login', async (req, res, next) => {
+    const correctUsername = 'admin';
+    const correctPassword = 'admin';
+    const inputtedUsername = req.body.username;
+    const inputtedPassword = req.body.password;
 
-router.post('/update', async (req, res, next) => {
-    const sqlStatement = getUpdateStatement(req.body);
-    
-    if (sqlStatement === 1) {
-        res.status(400).send();
-    } else {
-        updateUser(sqlStatement, (result) => {
-            if (result.affectedRows > 0) {
-                res.send(JSON.stringify(result));
-            } else {
-                res.status(400).send();
-            }
-        });
+    if (correctUsername === inputtedUsername && correctPassword === inputtedPassword) {
+        res.send(await readFile('./create.html', 'utf-8'));
+    } else if (inputtedUsername !== undefined && inputtedPassword !== undefined) {
+        const html = await readFile('./login.html', 'utf-8');
+        const replacedHtml = html.replace(`hidden="true"`, '');
+        res.send(replacedHtml);
+    };
+
+    /* ---------------------------------------------------------------------------------- */
+
+    const createName = req.body.createName;
+    const updateName = req.body.updateName;
+
+    if (createName) {
+        createUser(req.body, async (result) => {
+            if (result) {
+                const html = await readFile('./create.html', 'utf-8');
+                const replacedHtml = html.replace(`hidden="yes"`, '');
+                res.send(replacedHtml);
+           } else {
+                const html = await readFile('./create.html', 'utf-8');
+                const replacedHtml = html.replace(`hidden="true"`, '');
+                res.send(replacedHtml);
+           };
+       });
+    } else if (updateName) {
+        const sqlStatement = getUpdateStatement(req.body);
+
+        if (sqlStatement === 1) {
+            const html = await readFile('./create.html', 'utf-8');
+            const replacedHtml = html.replace(`hidden="true"`, '');
+            res.send(replacedHtml);
+        } else {
+            updateUser(sqlStatement, async (result) => {
+                if (result.affectedRows > 0) {
+                    const html = await readFile('./create.html', 'utf-8');
+                    const replacedHtml = html.replace(`hidden="yes"`, '');
+                    res.send(replacedHtml);
+                } else {
+                    const html = await readFile('./create.html', 'utf-8');
+                    const replacedHtml = html.replace(`hidden="true"`, '');
+                    res.send(replacedHtml);
+                };
+            });
+        };
     };
 });
 
