@@ -10,10 +10,18 @@ const {
 } = require('../src/builder/builder.js');
 
 router.get('/', async (req, res, next) => {
+    res.send(await readFile('./home.html', 'utf-8'));
+});
+
+router.get('/search', async (req, res, next) => {
     res.send(await readFile('./index.html', 'utf-8'));
 });
 
-router.post('/', async (req, res, next) => {
+router.get('/login', async (req, res, next) => {
+    res.send(await readFile('./login.html', 'utf-8'));
+});
+
+router.post('/search', async (req, res, next) => {
     const sqlStatement = getStatement(req.body);
 
     const jsonQuery = getPossibleUsers(sqlStatement, (result) => {
@@ -67,7 +75,7 @@ router.post('/', async (req, res, next) => {
                 padding-left: 10px;
                 padding-right: 10px;
             }
-        </style>
+            </style>
         </head>
         <h1>Result</h1>
         <br>
@@ -107,7 +115,7 @@ router.post('/', async (req, res, next) => {
                 `
             };
 
-            html += `</table></div>`
+            html += `</table></div></body></html>`
 
             res.send(html);
         } else {
