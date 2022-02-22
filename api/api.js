@@ -27,11 +27,12 @@ router.post('/search', async (req, res, next) => {
     const jsonQuery = getPossibleUsers(sqlStatement, async (result) => {
         const html = await readFile('./result.html', 'utf-8');
         let results = '';
+        let script = '';
 
         if (result) {
             for (let i = 0; i < result.length; i++) {
                 results += `
-                <tr>
+                <tr id="row-${i + 1}">
                     <td>${result[i].name}</td>
                     <td>${result[i].experience}</td>
                     <td>${result[i].qualifications}</td>
@@ -43,13 +44,22 @@ router.post('/search', async (req, res, next) => {
                     <td>${result[i].skills}</td>
                     <td>${result[i].current_project}</td>
                     <td>${result[i].availability}</td>
+                    <td><button onclick="btn${i + 1}()" id="btn-${i + 1}">Shortlist</button></td>
                 </tr>
+                `
+
+                script += `
+                function btn${i + 1}() {
+                    document.getElementById('shortlist').insertAdjacentHTML("beforeend", "<tr><a href='#row-${i + 1}'>Person #${i + 1}</a></tr>");
+                    document.getElementById('btn-${i + 1}').disabled = true;
+                };
                 `
             };
         
         const replacedHtml = html.replace('placeholder', results);
+        const replacedReplacedHtml = replacedHtml.replace('script-placeholder', script);
         
-        res.send(replacedHtml);
+        res.send(replacedReplacedHtml);
         } else {
             res.status(404).send(`<style>body {margin: 0; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;}</style><h1 style="margin: 0 !important; text-align: center; background-color: rgb(51,51,51); color: white; padding-top: 25px; padding-bottom: 25px; margin-block-end: 0px !important; margin-block-start: 0px !important;">No results found</h1><h4 style="text-align: center;"><a href="/">Back to home</a></h4>`);
         };
