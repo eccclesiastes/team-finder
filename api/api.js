@@ -21,6 +21,10 @@ router.get('/login', async (req, res, next) => {
     res.send(await readFile('./login.html', 'utf-8'));
 });
 
+router.get('/shortlist', async (req, res, next) => {
+    res.send(await readFile('./shortlist.html', 'utf-8'));
+});
+
 router.post('/search', async (req, res, next) => {
     const sqlStatement = getStatement(req.body);
 
@@ -52,9 +56,10 @@ router.post('/search', async (req, res, next) => {
                 function btn${i + 1}() {
                     document.getElementById('shortlist').insertAdjacentHTML("beforeend", "<tr><a href='#row-${i + 1}'>Person #${i + 1}</a></tr>");
                     document.getElementById('btn-${i + 1}').disabled = true;
+                    localStorage.setItem('person${i + 1}', '<tr id="row-${i + 1}"><td>${result[i].name}</td><td>${result[i].experience}</td><td>${result[i].qualifications}</td><td>${result[i].year_joined}</td><td>${result[i].location}</td><td>${result[i].ou}</td><td>${result[i].contact_info}</td><td>${result[i].grade}</td><td>${result[i].skills}</td><td>${result[i].current_project}</td><td>${result[i].availability}</td><td><button onclick="myFunc(event)" id="btn-${i + 1}" class="buttons">Remove</button></td></tr>');
                 };
                 `
-            };
+            }; 
         
         const replacedHtml = html.replace('placeholder', results);
         const replacedReplacedHtml = replacedHtml.replace('script-placeholder', script);
