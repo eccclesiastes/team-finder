@@ -146,17 +146,23 @@
             </form>
         </div>
 
+        <h4 hidden="true" style="color: red; text-align: center;">Error, please check if name of person exists in database</h4>
+        <h4 hidden="yes" style="color: green; text-align: center;" id="success-message">Success</h4>
+        <h4 style="text-align: center;"><a href="/">Back to home</a></h4>
+
         <script>
             const create = document.getElementById('create-form');
             const update = document.getElementById('update-form');
             const createButton = document.getElementById('create');
             const updateButton = document.getElementById('update');
+            const successMessage = document.getElementById('success-message');
 
             const createClick = () => {
                 update.hidden = true;
                 createButton.hidden = true;
                 create.hidden = false;
                 updateButton.hidden = false;
+                successMessage.hidden = true;
             };
 
             const updateClick = () => {
@@ -164,14 +170,11 @@
                 updateButton.hidden = true;
                 update.hidden = false;
                 createButton.hidden = false;
+                successMessage.hidden = true;
             };
 
             createButton.addEventListener('click', createClick);
             updateButton.addEventListener('click', updateClick);
         </script>
-
-        <h4 hidden="true" style="color: red; text-align: center;">Error, please check if name of person exists in database</h4>
-        <h4 hidden="yes" style="color: green; text-align: center;">Success</h4>
-        <h4 style="text-align: center;"><a href="/">Back to home</a></h4>
     </body>
 </html>
