@@ -2,7 +2,7 @@
         <html>
         <head>
             <meta charset="utf-8">
-            <title>Results!</title>
+            <title>Shortlist!</title>
             <style>
             h1 {
                 text-align: center;
@@ -60,51 +60,32 @@
             </style>
         </head>
         <body>
-        <h1>Result</h1>
+        <h1>Shortlist</h1>
         <br>
-        <div class="table">
-            <table id="results" style="border: 1px solid black">
-                <tr>
-                    <th>Name</th>
-                    <th>Experience</th>
-                    <th>Qualifications</th>
-                    <th>Year Joined</th>
-                    <th>Location</th>
-                    <th>OU</th>
-                    <th>Contact</th>
-                    <th>Grade</th>
-                    <th>Skills</th>
-                    <th>Current Project</th>
-                    <th>Availability</th>
-                    <th>Shortlist</th>
-                </tr>
-            </table>
-        </div>
-
-        <br>
-        <br>
-        <br>
-        <h2 style="text-align: center;"><a href="/shortlist">Shortlist</a></h2>
         <div class="table">
             <table id="shortlist" style="border: 1px solid black">
-                
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <th>Experience</th>
+                        <th>Qualifications</th>
+                        <th>Year Joined</th>
+                        <th>Location</th>
+                        <th>OU</th>
+                        <th>Contact</th>
+                        <th>Grade</th>
+                        <th>Skills</th>
+                        <th>Current Project</th>
+                        <th>Availability</th>
+                        <th>Remove</th>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
+        <button onclick="window.clear()" id="btn" class="buttons" style="margin-left: 48.5% !important; margin-top: 3%;">Clear</button>
+
         <script>
-            script-placeholder
-
-            let people = JSON.parse(localStorage.getItem('people')) || [];
- 
-            function btn(i) {
-                document.getElementById('shortlist').insertAdjacentHTML("beforeend", `<tr><a href='#row-${i + 1}'>Person #${i + 1}</a></tr>`);
-                document.getElementById(`btn-${i + 1}`).disabled = true;
-
-                people.push(data[i]);
-                localStorage.removeItem('people');
-                localStorage.setItem(`people`, JSON.stringify(people));
-            };
-
             const personToTable = (person, i) => {
                 return `<tr id="row-${i + 1}">
                     <td>${person.name}</td>
@@ -118,12 +99,42 @@
                     <td>${person.skills}</td>
                     <td>${person.current_project}</td>
                     <td>${person.availability}</td>
-                    <td><button onclick="btn(${i})" id="btn-${i + 1}">Shortlist</button></td>
+                    <td><button onclick="btn(${i})" id="btn-${i + 1}">Remove</button></td>
                 </tr>`;
             };
 
-            for (let i = 0; i < data.length; i++) {
-                document.getElementById('results').insertAdjacentHTML("beforeend", personToTable(data[i], i));
+            let people = JSON.parse(localStorage.getItem(`people`));
+
+            for (let i = 0; i < people.length; i++) {
+                let person = people[i];
+                let html = personToTable(person, i);
+                document.getElementById('shortlist').insertAdjacentHTML('beforeend', html);
+            };
+
+            function btn(i) {
+                const node = document.getElementById(`btn-${i + 1}`).parentNode.parentNode.parentNode;
+                document.getElementById('shortlist').removeChild(node);
+                people.splice(i, 1);
+                localStorage.removeItem('people');
+                localStorage.setItem(`people`, JSON.stringify(people));
+            };
+
+            function clear() {
+                localStorage.clear();
+                document.getElementById('shortlist').innerHTML = `<tr>
+                        <th>Name</th>
+                        <th>Experience</th>
+                        <th>Qualifications</th>
+                        <th>Year Joined</th>
+                        <th>Location</th>
+                        <th>OU</th>
+                        <th>Contact</th>
+                        <th>Grade</th>
+                        <th>Skills</th>
+                        <th>Current Project</th>
+                        <th>Availability</th>
+                        <th>Remove</th>
+                    </tr>`;
             };
         </script>
 
