@@ -36,7 +36,7 @@ Run `node .` to start the programme.
 
 Access the programme at `http://localhost:8080`.
 
-By default, the username and password to access the protected features are `admin` and `admin`. If you wish to change these, the correct credentials can be found at lines' 49 and 50 in [/api/api.js](https://github.com/qtdceu/team_finder/blob/main/api/api.js).
+By default, the username and password to access the protected features are `admin` and `admin`. If you wish to change these, the correct credentials can be found at lines' 49 and 50 in `/api/api.js`.
 
 ## Technologies
 
