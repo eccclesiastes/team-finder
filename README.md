@@ -52,7 +52,7 @@ By default, the username and password to access the protected features are `admi
 
 > Similar results, not exact
 
-> Present results as a profile 'card'; break out of table
+> Present results as a profile 'card'; break out of table; possibly add photos
 
 > Make website more eye pleasing
 
