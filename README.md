@@ -43,3 +43,7 @@ Access the programme at `http://localhost:8080`.
 > (NPM Package) MySQL2 2.3.3
 
 > MySQL
+
+## License 
+
+License can be found [here](https://github.com/qtdceu/team_finder/blob/main/LICENSE).
