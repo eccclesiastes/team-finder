@@ -58,6 +58,8 @@ By default, the username and password to access the protected features are `admi
 
 > Remove button for results
 
+> Make locked part more secure (tokens) 
+
 ## License 
 
 License can be found [here](https://github.com/qtdceu/team_finder/blob/main/LICENSE).
