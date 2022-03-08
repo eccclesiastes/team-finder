@@ -46,6 +46,18 @@ By default, the username and password to access the protected features are `admi
 
 > MySQL
 
+## To do
+
+> Multiple admin logins for logging 
+
+> Similar results, not exact
+
+> Present results as a profile 'card'; break out of table
+
+> Make website more eye pleasing
+
+> Remove button for results
+
 ## License 
 
 License can be found [here](https://github.com/qtdceu/team_finder/blob/main/LICENSE).
