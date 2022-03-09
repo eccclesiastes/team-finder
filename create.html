@@ -102,6 +102,9 @@
                 <label for="availability">Availability</label>
                 <input name="availability" type="text" id="availability" required>
 
+                <input name="username" type="text" id="username" required value=usernamePlaceholder hidden>
+                <input name="password" type="text" id="password" required value=passwordPlaceholder hidden>
+
                 <input type="submit" id="submit">
             </form>
         </div>
@@ -142,11 +145,15 @@
                 <label for="availability">Availability</label>
                 <input name="availability" type="text" id="availability">
 
+                <input name="username" type="text" id="username" required value=usernamePlaceholder hidden>
+                <input name="password" type="text" id="password" required value=passwordPlaceholder hidden>
+
                 <input type="submit" id="submit">
             </form>
         </div>
 
         <h4 hidden="true" style="color: red; text-align: center;">Error, please check if name of person exists in database</h4>
+        <h4 hidden="error" style="color: red; text-align: center;">Error, missing/invalid credentials</h4>
         <h4 hidden="yes" style="color: green; text-align: center;" id="success-message">Success</h4>
         <h4 style="text-align: center;"><a href="/">Back to home</a></h4>
 
