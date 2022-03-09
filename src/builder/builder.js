@@ -182,6 +182,16 @@ module.exports = {
             });
         } catch (e) {
             callback(undefined);
-        }
+        };
+    },
+
+    getCorrectPassword(username, callback) {
+        try {
+            connection.query(`SELECT password FROM credentials WHERE username="${username}";`, (err, result) => {
+                callback(result);
+            });
+        } catch (e) {
+            callback(undefined);
+        };
     },
 };
