@@ -68,11 +68,13 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 
 ## Technologies
 
-> Express 4.17.2
+> Node.js
 
-> (NPM Package) MySQL2 2.3.3
+> Express
 
-> MySQL
+> (NPM Package) MySQL2 
+
+> MySQL >= 8
 
 ## To do
 
