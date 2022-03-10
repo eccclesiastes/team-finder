@@ -7,7 +7,9 @@ const {
     createUser,
     getUpdateStatement,
     updateUser,
-    getCorrectPassword
+    getCorrectPassword,
+    getCreateStatementLogging,
+    logAction
 } = require('../src/builder/builder.js');
 
 router.get('/', async (req, res, next) => {
@@ -87,14 +89,22 @@ router.post('/login', async (req, res, next) => {
             const resultPassword = result[0].password;
 
             if (result.length > 0 && resultPassword === req.body.password) {
-                createUser(req.body, async (result) => {
+                logAction(req.body.username, getCreateStatementLogging(req.body), async (result) => {
                     if (result) {
-                        const html = await readFile('./create.html', 'utf-8');
-                        const replacedHtml = html.replace(`hidden="yes"`, '');
-                        res.send(replacedHtml);
+                        createUser(req.body, async (result) => {
+                            if (result) {
+                                const html = await readFile('./create.html', 'utf-8');
+                                const replacedHtml = html.replace(`hidden="yes"`, '');
+                                res.send(replacedHtml);
+                            } else {
+                                const html = await readFile('./create.html', 'utf-8');
+                                const replacedHtml = html.replace(`hidden="true"`, '');
+                                res.send(replacedHtml);
+                            };
+                        });
                     } else {
                         const html = await readFile('./create.html', 'utf-8');
-                        const replacedHtml = html.replace(`hidden="true"`, '');
+                        const replacedHtml = html.replace(`hidden="log-error"`, '');
                         res.send(replacedHtml);
                     };
                 });
@@ -124,14 +134,22 @@ router.post('/login', async (req, res, next) => {
                     const replacedHtml = html.replace(`hidden="true"`, '');
                     res.send(replacedHtml);
                 } else {
-                    updateUser(sqlStatement, async (result) => {
-                        if (result.affectedRows > 0) {
-                            const html = await readFile('./create.html', 'utf-8');
-                            const replacedHtml = html.replace(`hidden="yes"`, '');
-                            res.send(replacedHtml);
+                    logAction(req.body.username, sqlStatement, async (result) => {
+                        if (result) {
+                            updateUser(sqlStatement, async (result) => {
+                                if (result.affectedRows > 0) {
+                                    const html = await readFile('./create.html', 'utf-8');
+                                    const replacedHtml = html.replace(`hidden="yes"`, '');
+                                    res.send(replacedHtml);
+                                } else {
+                                    const html = await readFile('./create.html', 'utf-8');
+                                    const replacedHtml = html.replace(`hidden="true"`, '');
+                                    res.send(replacedHtml);
+                                };
+                            });
                         } else {
                             const html = await readFile('./create.html', 'utf-8');
-                            const replacedHtml = html.replace(`hidden="true"`, '');
+                            const replacedHtml = html.replace(`hidden="log-error"`, '');
                             res.send(replacedHtml);
                         };
                     });

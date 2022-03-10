@@ -194,4 +194,30 @@ module.exports = {
             callback(undefined);
         };
     },
+
+    getCreateStatementLogging(qualities) {
+        const name = qualities.createName
+        const experience = qualities.experience;
+        const qualifications = qualities.qualifications;
+        const year_joined = qualities.year_joined;
+        const location = qualities.location;
+        const ou = qualities.ou;
+        const contact_info = qualities.contact_info;
+        const grade = qualities.grade;
+        const skills = qualities.skills;
+        const current_project = qualities.current_project;
+        const availability = qualities.availability;
+
+        return `INSERT INTO users (name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability) values (${name}, ${experience}, ${qualifications}, ${year_joined}, ${location}, ${ou}, ${contact_info}, ${grade}, ${skills}, ${current_project}, ${availability})`
+    },
+
+    logAction(username, statement, callback) {
+        try {
+            connection.query(`INSERT INTO logs (username, action) VALUES (?, ?)`, [username, statement], (err, result) => {
+                callback(result);
+            });
+        } catch (e) {
+            callback(undefined);
+        };
+    },
 };
