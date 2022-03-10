@@ -78,15 +78,17 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 
 ## To do
 
-> Similar results, not exact
+- [x] Multiple admin logins for logging 
 
-> Present results as a profile 'card'; break out of table; possibly add photos
+- [ ] Similar results, not exact
 
-> Make website more eye pleasing
+- [ ] Present results as a profile 'card'; break out of table; possibly add photos
 
-> Remove button for results
+- [ ] Make website more eye pleasing
 
-> Log admin actions 
+- [ ] Remove button for results
+
+- [ ] Log admin actions 
 
 ## License 
 
