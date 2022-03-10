@@ -40,10 +40,14 @@
             }
 
             table {
-                margin-left: 8%;
+                margin-left: 2%;
                 margin-right: 18%;
                 width: 84%;
                 text-align: center;
+            }
+
+            #shortlist {
+                margin-left: 8% !important;
             }
 
             tr, td {
@@ -79,6 +83,7 @@
                     <th>Current Project</th>
                     <th>Availability</th>
                     <th>Shortlist</th>
+                    <th>Remove</th>
                 </tr>
             </table>
         </div>
@@ -107,6 +112,11 @@
                 localStorage.setItem(`people`, JSON.stringify(people));
             };
 
+            function remove(i) {
+                const node = document.getElementById(`remove-${i + 1}`).parentNode.parentNode.parentNode;
+                document.getElementById('results').removeChild(node);
+            };
+
             const personToTable = (person, i) => {
                 return `<tr id="row-${i + 1}">
                     <td>${person.name}</td>
@@ -121,6 +131,7 @@
                     <td>${person.current_project}</td>
                     <td>${person.availability}</td>
                     <td><button onclick="btn(${i})" id="btn-${i + 1}">Shortlist</button></td>
+                    <td><button onclick="remove(${i})" id="remove-${i + 1}">Remove</button></td>
                 </tr>`;
             };
 
