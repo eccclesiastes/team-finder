@@ -93,13 +93,13 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 
 - [x] Log admin actions 
 
+- [x] Remove button for results
+
 - [ ] Similar results, not exact
 
 - [ ] Present results as a profile 'card'; break out of table; possibly add photos
 
 - [ ] Make website more eye pleasing
-
-- [ ] Remove button for results
 
 ## License 
 
