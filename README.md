@@ -91,6 +91,8 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 
 - [x] Multiple admin logins for logging 
 
+- [x] Log admin actions 
+
 - [ ] Similar results, not exact
 
 - [ ] Present results as a profile 'card'; break out of table; possibly add photos
@@ -98,8 +100,6 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 - [ ] Make website more eye pleasing
 
 - [ ] Remove button for results
-
-- [ ] Log admin actions 
 
 ## License 
 
