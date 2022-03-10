@@ -1,6 +1,6 @@
 # Team finder 
 
-Like the name suggests, this is an app that someone can use to find colleagues needed for a team for an upcoming project in the work environment, built after someone gave me the idea for it after realising the gap inside their company. Think of it as Tinder (or Grinder) but for the workplace. This also opened an opportunity to learn lots, such as DOM usage, and creating a non-hardcoded website for the first time.
+Like the name suggests, this is an app that someone can use to find colleagues needed for a team for an upcoming project in the work environment, built after someone gave me the idea for it after realising the gap inside their company. Think of it as Tinder (or Grindr) but for the workplace. This also opened an opportunity to learn lots, such as DOM usage, and creating a non-hardcoded website for the first time.
 
 ## Features
 
@@ -28,7 +28,13 @@ Inside that database, create a table called `users`. Schema is:
 
 ![DB Schema](https://github.com/qtdceu/team_finder/blob/main/img/schema.png)
 
-Set the primary key on `name` and a unique constraint on `contact_info`.
+Set the primary key on `name`, a unique constraint on `contact_info`, and a not null constraint on all columns apart from `qualifications` and `experience`.
+
+Whilst inside the same database, create a table called `credentials`. Schema is: 
+
+![Credentials Schema](https://github.com/qtdceu/team_finder/blob/main/img/credentials_schema.png)
+
+Set the primary key on `username` and a not null constrain on `password`.
 
 In `databaseConfig.js`, edit the `connection` variable's options to fit your setup. 
 
@@ -36,7 +42,7 @@ Run `node .` to start the programme.
 
 Access the programme at `http://localhost:8080`.
 
-By default, the username and password to access the protected features are `admin` and `admin`. If you wish to change these, the correct credentials can be found at lines' 49 and 50 in `/api/api.js`.
+To access the admin panel, you have to manually insert sets of usernames and passwords into the `credentials` table through your Workbench, then input them into the login box on the page. 
 
 ## Technologies
 
@@ -48,8 +54,6 @@ By default, the username and password to access the protected features are `admi
 
 ## To do
 
-> Multiple admin logins for logging 
-
 > Similar results, not exact
 
 > Present results as a profile 'card'; break out of table; possibly add photos
@@ -58,7 +62,7 @@ By default, the username and password to access the protected features are `admi
 
 > Remove button for results
 
-> Make locked part more secure (tokens) 
+> Log admin actions 
 
 ## License 
 
