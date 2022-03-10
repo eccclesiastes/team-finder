@@ -6,7 +6,8 @@ const {
     getPossibleUsers,
     createUser,
     getUpdateStatement,
-    updateUser
+    updateUser,
+    getCorrectPassword
 } = require('../src/builder/builder.js');
 
 router.get('/', async (req, res, next) => {
@@ -46,17 +47,26 @@ router.post('/search', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
-    const correctUsername = 'admin';
-    const correctPassword = 'admin';
-    const inputtedUsername = req.body.username;
-    const inputtedPassword = req.body.password;
+    const inputtedUsername = req.body.usernameLogin;
+    const inputtedPassword = req.body.passwordLogin;
 
-    if (correctUsername === inputtedUsername && correctPassword === inputtedPassword) {
-        res.send(await readFile('./create.html', 'utf-8'));
-    } else if (inputtedUsername !== undefined && inputtedPassword !== undefined) {
-        const html = await readFile('./login.html', 'utf-8');
-        const replacedHtml = html.replace(`hidden="true"`, '');
-        res.send(replacedHtml);
+    if (inputtedUsername && inputtedPassword) {
+        getCorrectPassword(inputtedUsername, async (result) => {
+            if (result) {
+                if (result.length > 0 && result[0].password === inputtedPassword) {
+                    const html = await readFile('./create.html', 'utf-8');
+                    res.send(html);
+                } else {
+                    const html = await readFile('./login.html', 'utf-8');
+                    const replacedHtml = html.replace(`hidden="true"`, '');
+                    res.send(replacedHtml);
+                };
+            } else {
+                const html = await readFile('./login.html', 'utf-8');
+                const replacedHtml = html.replace(`hidden="true"`, '');
+                res.send(replacedHtml);
+            };
+        });
     };
 
     /* ---------------------------------------------------------------------------------- */
@@ -65,37 +75,73 @@ router.post('/login', async (req, res, next) => {
     const updateName = req.body.updateName;
 
     if (createName) {
-        createUser(req.body, async (result) => {
-            if (result) {
-                const html = await readFile('./create.html', 'utf-8');
-                const replacedHtml = html.replace(`hidden="yes"`, '');
-                res.send(replacedHtml);
-           } else {
-                const html = await readFile('./create.html', 'utf-8');
+
+        if (!req.body.username || !req.body.password) {
+            const html = await readFile('./create.html', 'utf-8');
+            const replacedHtml = html.replace(`hidden="error"`, '');
+            return res.send(replacedHtml);
+        };
+
+        getCorrectPassword(req.body.username, async (result) => {
+
+            const resultPassword = result[0].password;
+
+            if (result.length > 0 && resultPassword === req.body.password) {
+                createUser(req.body, async (result) => {
+                    if (result) {
+                        const html = await readFile('./create.html', 'utf-8');
+                        const replacedHtml = html.replace(`hidden="yes"`, '');
+                        res.send(replacedHtml);
+                    } else {
+                        const html = await readFile('./create.html', 'utf-8');
+                        const replacedHtml = html.replace(`hidden="true"`, '');
+                        res.send(replacedHtml);
+                    };
+                });
+            } else {
+                const html = await readFile('./create', 'utf-8');
                 const replacedHtml = html.replace(`hidden="true"`, '');
                 res.send(replacedHtml);
-           };
-       });
+            };
+        });
     } else if (updateName) {
-        const sqlStatement = getUpdateStatement(req.body);
 
-        if (sqlStatement === 1) {
+        if (!req.body.username || !req.body.password) {
             const html = await readFile('./create.html', 'utf-8');
-            const replacedHtml = html.replace(`hidden="true"`, '');
-            res.send(replacedHtml);
-        } else {
-            updateUser(sqlStatement, async (result) => {
-                if (result.affectedRows > 0) {
-                    const html = await readFile('./create.html', 'utf-8');
-                    const replacedHtml = html.replace(`hidden="yes"`, '');
-                    res.send(replacedHtml);
-                } else {
+            const replacedHtml = html.replace(`hidden="error"`, '');
+            return res.send(replacedHtml);
+        };
+
+        getCorrectPassword(req.body.username, async (result) => {
+
+            const resultPassword = result[0].password;
+
+            if (result.length > 0 && resultPassword === req.body.password) {
+                const sqlStatement = getUpdateStatement(req.body);
+
+                if (sqlStatement === 1) {
                     const html = await readFile('./create.html', 'utf-8');
                     const replacedHtml = html.replace(`hidden="true"`, '');
                     res.send(replacedHtml);
+                } else {
+                    updateUser(sqlStatement, async (result) => {
+                        if (result.affectedRows > 0) {
+                            const html = await readFile('./create.html', 'utf-8');
+                            const replacedHtml = html.replace(`hidden="yes"`, '');
+                            res.send(replacedHtml);
+                        } else {
+                            const html = await readFile('./create.html', 'utf-8');
+                            const replacedHtml = html.replace(`hidden="true"`, '');
+                            res.send(replacedHtml);
+                        };
+                    });
                 };
-            });
-        };
+            } else {
+                const html = await readFile('./create.html', 'utf-8');
+                const replacedHtml = html.replace(`hidden="error"`, '');
+                res.send(replacedHtml);
+            };
+        });
     };
 });
 
