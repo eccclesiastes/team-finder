@@ -28,7 +28,7 @@ Inside that database, create a table called `users`. Schema is:
 
 ![DB Schema](https://github.com/qtdceu/team_finder/blob/main/img/schema.png)
 
-Set the primary key on `name`.
+Set the primary key on `name` and a unique constraint on `contact_info`.
 
 In `databaseConfig.js`, edit the `connection` variable's options to fit your setup. 
 
