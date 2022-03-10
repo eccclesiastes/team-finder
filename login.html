@@ -33,6 +33,7 @@
 
             #submit {
                 margin-top: 20px;
+                margin-left: 48%;
             }
 
             h2 {
@@ -54,10 +55,21 @@
 
                 <label for="password">Password</label>
                 <input name="passwordLogin" type="password" id="password" required>
-
-                <input type="submit" id="submit">
             </form>
+
+            <button id="submit">Submit</button>
         </div>
+
+        <script>
+            const submit = () => {
+                localStorage.clear();
+                localStorage.setItem('username', document.getElementById('username').value);
+                localStorage.setItem('password', document.getElementById('password').value);
+                document.getElementById('form').submit();
+            };
+
+            document.getElementById('submit').addEventListener('click', submit);
+        </script>
 
         <h4 hidden="true" style="color: red; text-align: center;">Incorrect Credentials</h4>
         <h4 style="text-align: center;"><a href="/">Back to home</a></h4>
