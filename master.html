@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Look for team members!</title>
+        <link href="style.css" rel="stylesheet" type="text/html">
+        <style>
+            h1 {
+                text-align: center;
+                background-color: rgb(51,51,51);
+                color: white;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                margin-block-end: 0px;
+                margin-block-start: 0px;
+            }
+
+            body {
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                margin: 0;
+            }
+
+            #form {
+                padding-left: 45%;
+                padding-right: 55%;
+                padding-top: 2%;
+            }
+
+            label {
+                width: 20%;
+            }
+
+            #year-label, #project-label {
+                height: 150% !important;
+                width: 150% !important;
+            }
+
+            #submit {
+                margin-top: 20px;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            #buttons {
+                margin-left: 46%;
+                margin-top: 1%;
+            }
+
+            button {
+                height: 50px;
+                width: 140px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <h1>Team Finder!</h1>
+        </div>
+
+        <div id="explanation">
+            <p style="text-align: center;">Insert in a new user's username as well as the email to be sent a generated password.</p>
+        </div>
+
+        <div id="create-form">
+            <h2>Create</h2>
+            <form method="post" id="form">
+                <label for="name">Username</label>
+                <input name="newUserUsername" type="text" id="name" required>
+
+                <label for="email">Email</label>
+                <input name="newUserEmail" type="email" id="email" required>
+
+                <input name="username" type="text" id="username" required hidden>
+                <input name="password" type="text" id="password" required hidden>
+
+                <input type="submit" id="submit">
+            </form>
+        </div>
+
+        <h4 hidden="true" style="color: red; text-align: center;">Error, please check if person already exists in database</h4>
+        <h4 hidden="error" style="color: red; text-align: center;">Error, missing/invalid credentials</h4>
+        <h4 hidden="email-error" style="color: red; text-align: center;">Error, email unable to be sent</h4>
+        <h4 hidden="yes" style="color: green; text-align: center;" id="success-message">Success</h4>
+        <h4 style="text-align: center;"><a href="/">Back to home</a></h4>
+
+        <script>
+            document.getElementById('username').setAttribute('value', localStorage.getItem('username'));
+            document.getElementById('password').setAttribute('value', localStorage.getItem('password'));
+        </script>
+    </body>
+</html>

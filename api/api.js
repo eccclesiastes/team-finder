@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const path = require('path');
+const crypto = require('crypto');
+const passwordGenerator = require('generate-password');
 const { readFile } = require('fs').promises;
 const { 
     getStatement,
@@ -9,7 +10,9 @@ const {
     updateUser,
     getCorrectPassword,
     getCreateStatementLogging,
-    logAction
+    logAction,
+    insertCredentials,
+    sendPasswordEmail
 } = require('../src/builder/builder.js');
 
 router.get('/', async (req, res, next) => {
@@ -52,29 +55,37 @@ router.post('/login', async (req, res, next) => {
     const inputtedUsername = req.body.usernameLogin;
     const inputtedPassword = req.body.passwordLogin;
 
+    const masterUsername = require('../config.json').masterUsername;
+    const masterPassword = require('../config.json').masterPassword;
+
     if (inputtedUsername && inputtedPassword) {
-        getCorrectPassword(inputtedUsername, async (result) => {
-            if (result) {
-                if (result.length > 0 && result[0].password === inputtedPassword) {
-                    const html = await readFile('./create.html', 'utf-8');
-                    res.send(html);
+        if (inputtedUsername !== masterUsername && inputtedPassword !== masterPassword) {
+            getCorrectPassword(inputtedUsername, async (result) => {
+                if (result) {
+                    if (result.length > 0 && result[0].password === inputtedPassword) {
+                        const html = await readFile('./create.html', 'utf-8');
+                        res.send(html);
+                    } else {
+                        const html = await readFile('./login.html', 'utf-8');
+                        const replacedHtml = html.replace(`hidden="true"`, '');
+                        res.send(replacedHtml);
+                    };
                 } else {
                     const html = await readFile('./login.html', 'utf-8');
                     const replacedHtml = html.replace(`hidden="true"`, '');
                     res.send(replacedHtml);
                 };
-            } else {
-                const html = await readFile('./login.html', 'utf-8');
-                const replacedHtml = html.replace(`hidden="true"`, '');
-                res.send(replacedHtml);
-            };
-        });
+            });
+        } else if (inputtedUsername === masterUsername && inputtedPassword === masterPassword) {
+            res.send(await readFile('./master.html', 'utf-8'));
+        };
     };
 
     /* ---------------------------------------------------------------------------------- */
 
     const createName = req.body.createName;
     const updateName = req.body.updateName;
+    const createNewName = req.body.newUserUsername;
 
     if (createName) {
 
@@ -160,6 +171,52 @@ router.post('/login', async (req, res, next) => {
                 res.send(replacedHtml);
             };
         });
+    } else if (createNewName) {
+
+        if (!req.body.username || !req.body.password) {
+            const html = await readFile('./create.html', 'utf-8');
+            const replacedHtml = html.replace(`hidden="error"`, '');
+            return res.send(replacedHtml);
+        };
+
+        if (req.body.username === masterUsername && req.body.password === masterPassword) {
+            const passwordToHash = passwordGenerator.generate({
+                length: 20,
+                numbers: true,
+                symbols: true,
+                lowercase: true,
+                uppercase: true,
+                strict: true
+            });
+
+            const hashPassword = (password) => {
+                this.salt = crypto.randomBytes(16).toString('hex');
+                const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+                return hash;
+            };
+
+            const password = hashPassword(passwordToHash);
+
+            insertCredentials(req.body.newUserUsername, password, async (result) => {
+                if (result) {
+                    const sent = sendPasswordEmail(req.body.newUserEmail, req.body.newUserUsername, passwordToHash, async (sent) => {
+                        if (sent) {
+                            const html = await readFile('./master.html', 'utf-8');
+                            const replacedHtml = html.replace(`hidden="yes"`, '');
+                            res.send(replacedHtml);
+                        } else {
+                            const html = await readFile('./master.html', 'utf-8');
+                            const replacedHtml = html.replace(`hidden="email-error"`, '');
+                            res.send(replacedHtml);
+                        };
+                    });
+                } else {
+                    const html = await readFile('./master.html', 'utf-8');
+                    const replacedHtml = html.replace(`hidden="true"`, '');
+                    res.send(replacedHtml);
+                };
+            });
+        };
     };
 });
 

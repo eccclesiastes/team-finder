@@ -220,4 +220,42 @@ module.exports = {
             callback(undefined);
         };
     },
+
+    insertCredentials(username, password, callback) {
+        try {
+            connection.query(`INSERT INTO credentials (username, password) VALUES (?, ?)`, [username, password], (err, result) => {
+                callback(result);
+            });
+        } catch (e) {
+            callback(undefined);
+        };
+    },
+
+    sendPasswordEmail(email, username, password, callback) {
+        const nodemailer = require('nodemailer');
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: require('../../config.json').username,
+                pass: require('../../config.json').password,
+            },
+        });
+
+        const messageToSend = {
+            from: 'Team Finder',
+            to: email,
+            subject: 'Your administrator has given you moderation rights',
+            text: `Dear ${email}, \n\n Your organisation's administrator has granted you permission to update/create members on Team Finder. The login is as follows: \n\n Username: ${username} \n Password: ${password} \n Please contact your administrator for any further queries.`,
+        };
+
+        transporter.sendMail(messageToSend, (error, info) => {
+            if (error) {
+                console.log(error);
+                callback(false);
+            } else {
+                callback(true);
+            };
+        });
+    },
 };
