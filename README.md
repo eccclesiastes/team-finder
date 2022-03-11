@@ -71,6 +71,8 @@ CREATE TABLE `logs` (
 
 In `databaseConfig.js`, edit the `connection` variable's options to fit your setup. 
 
+In `config.json`, edit the `username` and `password` to fit with your GMail account's credentials.
+
 Run `node .` to start the programme. 
 
 Access the programme at `http://localhost:8080`.
