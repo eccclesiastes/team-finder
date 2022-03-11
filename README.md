@@ -87,6 +87,8 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 
 > Crypto
 
+> Generate-password
+
 > MySQL >= 8
 
 ## To do
