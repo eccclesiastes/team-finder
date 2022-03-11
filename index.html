@@ -38,6 +38,7 @@
 
             #submit {
                 margin-top: 20px;
+                margin-left: 48%;
             }
         </style>
     </head>
@@ -78,10 +79,19 @@
 
                 <label for="availability">Availability</label>
                 <input name="availability" type="text" id="availability">
-
-                <input type="submit" id="submit">
             </form>
+
+            <button id="submit">Submit</button>
         </div>
+
+        <script>
+            const submit = () => {
+                localStorage.removeItem('removal');
+                document.getElementById('form').submit();
+            };
+
+            document.getElementById('submit').addEventListener('click', submit);
+        </script>
 
         <h4 style="text-align: center;"><a href="/">Back to home</a></h4>
 
