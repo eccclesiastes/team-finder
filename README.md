@@ -24,7 +24,7 @@ Like the name suggests, this is an app that someone can use to find colleagues n
 
 > What the user recieving the account sees: 
 
-![Credentials email](https://github.com/qtdceu/team_finder/blob/main/img/ezgif.com-gif-maker%20(2).gif)
+![Credentials email](https://github.com/qtdceu/team_finder/blob/main/img/Screenshot%202022-03-11%20225752.png)
 
 ## How to use
 
