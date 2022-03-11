@@ -89,6 +89,8 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 
 > Generate-password
 
+> Nodemailer
+
 > MySQL >= 8
 
 ## To do
