@@ -62,7 +62,8 @@
 
         <script>
             const submit = () => {
-                localStorage.clear();
+                localStorage.removeItem('username');
+                localStorage.removeItem('password');
                 localStorage.setItem('username', document.getElementById('username').value);
                 localStorage.setItem('password', document.getElementById('password').value);
                 document.getElementById('form').submit();
