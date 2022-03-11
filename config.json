@@ -1,4 +1,6 @@
 {
     "username": "teamfinder@gmail.com",
-    "password": "Teamfinder123"
+    "password": "Teamfinder123",
+    "masterUsername": "admin",
+    "masterPassword": "admin"
 }
