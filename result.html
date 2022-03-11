@@ -102,6 +102,7 @@
             script-placeholder
 
             let people = JSON.parse(localStorage.getItem('people')) || [];
+            let removal = JSON.parse(localStorage.getItem('removal')) || [];
  
             function btn(i) {
                 document.getElementById('shortlist').insertAdjacentHTML("beforeend", `<tr><a href='#row-${i + 1}'>Person #${i + 1}</a></tr>`);
@@ -115,6 +116,10 @@
             function remove(i) {
                 const node = document.getElementById(`remove-${i + 1}`).parentNode.parentNode.parentNode;
                 document.getElementById('results').removeChild(node);
+
+                removal.push(data[i]);
+                localStorage.removeItem('removal');
+                localStorage.setItem('removal', JSON.stringify(removal));
             };
 
             const personToTable = (person, i) => {
@@ -136,7 +141,8 @@
             };
 
             for (let i = 0; i < data.length; i++) {
-                if (!JSON.stringify(people).includes(JSON.stringify(data[i]))) {
+                console.log(JSON.stringify(removal).includes(JSON.stringify(data[i])));
+                if (!JSON.stringify(removal).includes(JSON.stringify(data[i])) && !JSON.stringify(people).includes(JSON.stringify(data[i]))) {
                     document.getElementById('results').insertAdjacentHTML("beforeend", personToTable(data[i], i));
                 };
             };
