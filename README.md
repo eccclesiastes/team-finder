@@ -85,6 +85,8 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 
 > (NPM Package) MySQL2 
 
+> Crypto
+
 > MySQL >= 8
 
 ## To do

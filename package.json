@@ -9,6 +9,7 @@
   "author": "Joey R.",
   "license": "ISC",
   "dependencies": {
+    "crypto": "^1.0.1",
     "express": "^4.17.2",
     "mysql2": "^2.3.3"
   }
