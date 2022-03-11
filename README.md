@@ -6,13 +6,13 @@ Like the name suggests, this is an app that someone can use to find colleagues n
 
 ### Users:
 
-> A normal user can look up employees in the database on the website, and filter down results to their wants and needs. All people who meet the provided conditions (if any) are presented inside a table with name, contact, skills etc. People who are a match to the users requirements can then be shortlisted. The shortlist is another version of the same table, with only the people the user selected this time around. Users inside the shortlist can be added and removed anytime.
+> A normal user can look up employees in the database on the website, and filter down results to their wants and needs. All people who meet the provided conditions (if any) are presented inside a table with name, contact, skills etc. People who are a match to the users requirements can then be shortlisted, and people who aren't what the user needs can be removed from the search. The shortlist is another version of the same table, with only the people the user selected this time around. Users inside the shortlist can be added and removed anytime.
 
 ![User search GIF](https://github.com/qtdceu/team_finder/blob/main/img/ezgif.com-gif-maker.gif)
 
 ### Admins:
 
-> Administrators can use the same features as a normal user, but also have access to moderate members of the organisation. Behind the password locked panel, admins have the ability to create users, as well as update certain ones by name. 
+> Administrators can use the same features as a normal user, but also have access to moderate members of the organisation. Behind the password locked panel, admins have the ability to create users, as well as update certain ones by name. All actions attempted to be taken by admins is logged to a database for peace of mind. 
 
 ![Admin create/update GIF](https://github.com/qtdceu/team_finder/blob/main/img/ezgif.com-gif-maker%20(1).gif)
 
@@ -100,6 +100,8 @@ To access the admin panel, you have to manually insert sets of usernames and pas
 - [ ] Present results as a profile 'card'; break out of table; possibly add photos
 
 - [ ] Make website more eye pleasing
+
+- [ ] Hash and Salt admin logins
 
 ## License 
 
