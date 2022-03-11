@@ -141,7 +141,6 @@
             };
 
             for (let i = 0; i < data.length; i++) {
-                console.log(JSON.stringify(removal).includes(JSON.stringify(data[i])));
                 if (!JSON.stringify(removal).includes(JSON.stringify(data[i])) && !JSON.stringify(people).includes(JSON.stringify(data[i]))) {
                     document.getElementById('results').insertAdjacentHTML("beforeend", personToTable(data[i], i));
                 };
