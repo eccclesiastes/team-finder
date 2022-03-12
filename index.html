@@ -22,9 +22,9 @@
             }
 
             #form {
-                padding-left: 45%;
+                padding-left: 43.5%;
                 padding-right: 55%;
-                padding-top: 2%;
+                padding-top: 1%;
             }
 
             label {
@@ -40,6 +40,22 @@
                 margin-top: 20px;
                 margin-left: 48%;
             }
+
+            input {
+                margin-bottom: 7.5px;
+                padding-left: 15px;
+                padding-right: 15px;
+                height: 20px;
+                text-align: center;
+            }
+
+            input:focus {
+                border: 1px solid #555;
+            }
+
+            ::placeholder {
+                text-align: center;
+            }
         </style>
     </head>
 
@@ -50,35 +66,25 @@
 
         <div>
             <form method="post" id="form">
-                <label for="experience">Experience</label>
-                <input name="experience" type="text" id="experience">
+                <input name="experience" type="text" id="experience" placeholder="Experience">
 
-                <label for="qualifications">Qualifications</label>
-                <input name="qualifications" type="text" id="qualifications">
+                <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications">
 
-                <label for="year_joined" id="year-label">Year Joined</label>
-                <input name="year_joined" type="number" id="year_joined">
+                <input name="year_joined" type="number" id="year_joined" placeholder="Year Joined">
 
-                <label for="location">Location</label>
-                <input name="location" type="text" id="location">
+                <input name="location" type="text" id="location" placeholder="Location">
 
-                <label for="ou">OU</label>
-                <input name="ou" type="text" id="ou">
+                <input name="ou" type="text" id="ou" placeholder="OU">
 
-                <label for="contact_info">Contact</label>
-                <input name="contact_info" type="text" id="contact_info">
+                <input name="contact_info" type="text" id="contact_info" placeholder="Contact">
 
-                <label for="grade">Grade</label>
-                <input name="grade" type="text" id="grade">
+                <input name="grade" type="text" id="grade" placeholder="Grade">
 
-                <label for="skills">Skills</label>
-                <input name="skills" type="text" id="skills">
+                <input name="skills" type="text" id="skills" placeholder="Skills">
 
-                <label for="current_project" id="project-label">Current Project</label>
-                <input name="current_project" type="text" id="current_project">
+                <input name="current_project" type="text" id="current_project" placeholder="Current Project">
 
-                <label for="availability">Availability</label>
-                <input name="availability" type="text" id="availability">
+                <input name="availability" type="text" id="availability" placeholder="Availability">
             </form>
 
             <button id="submit">Submit</button>

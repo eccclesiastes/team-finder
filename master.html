@@ -22,9 +22,9 @@
             }
 
             #form {
-                padding-left: 45%;
+                padding-left: 43.5%;
                 padding-right: 55%;
-                padding-top: 2%;
+                padding-top: 1%;
             }
 
             label {
@@ -38,6 +38,7 @@
 
             #submit {
                 margin-top: 20px;
+                margin-left: 48%;
             }
 
             h2 {
@@ -49,9 +50,20 @@
                 margin-top: 1%;
             }
 
-            button {
-                height: 50px;
-                width: 140px;
+            input {
+                margin-bottom: 7.5px;
+                padding-left: 15px;
+                padding-right: 15px;
+                height: 20px;
+                text-align: center;
+            }
+
+            input:focus {
+                border: 1px solid #555;
+            }
+
+            ::placeholder {
+                text-align: center;
             }
         </style>
     </head>
@@ -68,17 +80,15 @@
         <div id="create-form">
             <h2>Create</h2>
             <form method="post" id="form">
-                <label for="name">Username</label>
-                <input name="newUserUsername" type="text" id="name" required>
+                <input name="newUserUsername" type="text" id="name" required placeholder="Username">
 
-                <label for="email">Email</label>
-                <input name="newUserEmail" type="email" id="email" required>
+                <input name="newUserEmail" type="email" id="email" required placeholder="Email">
 
                 <input name="username" type="text" id="username" required hidden>
                 <input name="password" type="text" id="password" required hidden>
-
-                <input type="submit" id="submit">
             </form>
+
+            <button id="submit">Submit</button>
         </div>
 
         <h4 hidden="true" style="color: red; text-align: center;">Error, please check if person already exists in database</h4>
@@ -90,6 +100,12 @@
         <script>
             document.getElementById('username').setAttribute('value', localStorage.getItem('username'));
             document.getElementById('password').setAttribute('value', localStorage.getItem('password'));
+
+            const submit = () => {
+                document.getElementById('form').submit();
+            };
+
+            document.getElementById('submit').addEventListener('click', submit);
         </script>
     </body>
 </html>
