@@ -18,7 +18,7 @@ Like the name suggests, this is an app that someone can use to find colleagues n
 
 ### Higher-tier Admins:
 
-> Higher-tier Administrators have the ability to use the 'Create Admin Account' panel. Using the same login page as lower-tier admins, and using the 'masterUsername' and 'masterPassword', they can generate an account by inputting a username, and the email of the person to recieve the account. This is designed to email the username and password to the person recieving the account, while keeping all credentials hidden from everyone else, even the Admin creating the account. 
+> Higher-tier Administrators have the ability to use the 'Create Admin Account' panel. Using the same login page as lower-tier admins, and using the 'masterUsername' and 'masterPassword', they can generate an account by inputting a username, and the email of the person to recieve the account. This is designed to email the username and password to the person recieving the account, while keeping the password hidden from everyone else, even the Admin creating the account. 
 
 ![High-admin create GIF](https://github.com/qtdceu/team_finder/blob/main/img/ezgif.com-gif-maker%20(2).gif)
 
