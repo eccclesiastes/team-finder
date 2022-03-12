@@ -61,15 +61,20 @@ router.post('/login', async (req, res, next) => {
     if (inputtedUsername && inputtedPassword) {
         if (inputtedUsername !== masterUsername && inputtedPassword !== masterPassword) {
             getCorrectPassword(inputtedUsername, async (result) => {
-                if (result) {
-                    if (result.length > 0 && result[0].password === inputtedPassword) {
-                        const html = await readFile('./create.html', 'utf-8');
-                        res.send(html);
-                    } else {
-                        const html = await readFile('./login.html', 'utf-8');
-                        const replacedHtml = html.replace(`hidden="true"`, '');
-                        res.send(replacedHtml);
-                    };
+
+                const resultPassword = result[0].password;
+                const resultSalt = result[0].salt;
+
+                const hashPassword = (password) => {
+                    const hash = crypto.pbkdf2Sync(password, resultSalt, 1000, 64, 'sha512').toString('hex');
+                    return hash === resultPassword;
+                };
+    
+                const hashedPassword = hashPassword(inputtedPassword);
+
+                if (hashedPassword) {
+                    const html = await readFile('./create.html', 'utf-8');
+                    res.send(html);
                 } else {
                     const html = await readFile('./login.html', 'utf-8');
                     const replacedHtml = html.replace(`hidden="true"`, '');
@@ -98,8 +103,16 @@ router.post('/login', async (req, res, next) => {
         getCorrectPassword(req.body.username, async (result) => {
 
             const resultPassword = result[0].password;
+            const resultSalt = result[0].salt;
 
-            if (result.length > 0 && resultPassword === req.body.password) {
+            const hashPassword = (password) => {
+                const hash = crypto.pbkdf2Sync(password, resultSalt, 1000, 64, 'sha512').toString('hex');
+                return hash === resultPassword;
+            };
+
+            const hashedPassword = hashPassword(req.body.password);
+
+            if (hashedPassword) {
                 logAction(req.body.username, getCreateStatementLogging(req.body), async (result) => {
                     if (result) {
                         createUser(req.body, async (result) => {
@@ -136,8 +149,16 @@ router.post('/login', async (req, res, next) => {
         getCorrectPassword(req.body.username, async (result) => {
 
             const resultPassword = result[0].password;
+            const resultSalt = result[0].salt;
 
-            if (result.length > 0 && resultPassword === req.body.password) {
+            const hashPassword = (password) => {
+                const hash = crypto.pbkdf2Sync(password, resultSalt, 1000, 64, 'sha512').toString('hex');
+                return hash === resultPassword;
+            };
+
+            const hashedPassword = hashPassword(req.body.password);
+
+            if (hashedPassword) {
                 const sqlStatement = getUpdateStatement(req.body);
 
                 if (sqlStatement === 1) {
@@ -189,15 +210,16 @@ router.post('/login', async (req, res, next) => {
                 strict: true
             });
 
+            let salt = crypto.randomBytes(16).toString('hex');
+
             const hashPassword = (password) => {
-                this.salt = crypto.randomBytes(16).toString('hex');
-                const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+                const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
                 return hash;
             };
 
             const password = hashPassword(passwordToHash);
 
-            insertCredentials(req.body.newUserUsername, password, async (result) => {
+            insertCredentials(req.body.newUserUsername, password, salt, async (result) => {
                 if (result) {
                     const sent = sendPasswordEmail(req.body.newUserEmail, req.body.newUserUsername, passwordToHash, async (sent) => {
                         if (sent) {

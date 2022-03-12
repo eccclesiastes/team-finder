@@ -187,7 +187,7 @@ module.exports = {
 
     getCorrectPassword(username, callback) {
         try {
-            connection.query(`SELECT password FROM credentials WHERE username="${username}";`, (err, result) => {
+            connection.query(`SELECT password, salt FROM credentials WHERE username="${username}";`, (err, result) => {
                 callback(result);
             });
         } catch (e) {
@@ -221,9 +221,9 @@ module.exports = {
         };
     },
 
-    insertCredentials(username, password, callback) {
+    insertCredentials(username, password, salt, callback) {
         try {
-            connection.query(`INSERT INTO credentials (username, password) VALUES (?, ?)`, [username, password], (err, result) => {
+            connection.query(`INSERT INTO credentials (username, password, salt) VALUES (?, ?, ?)`, [username, password, salt], (err, result) => {
                 callback(result);
             });
         } catch (e) {
