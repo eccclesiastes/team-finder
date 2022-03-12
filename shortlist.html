@@ -120,7 +120,7 @@
             };
 
             function clear() {
-                localStorage.clear();
+                localStorage.removeItem('people');
                 document.getElementById('shortlist').innerHTML = `<tr>
                         <th>Name</th>
                         <th>Experience</th>
