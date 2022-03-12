@@ -62,6 +62,7 @@ Whilst inside the same database, create a table called `credentials` (admin logi
 CREATE TABLE `credentials` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `salt` varchar(255) NOT NULL,
   PRIMARY KEY (`username`)
 )
 ```
