@@ -91,7 +91,7 @@
         <div id="create-form">
             <h2>Create</h2>
             <div style="text-align: center;">
-                <form method="post" id="form">
+                <form method="post" id="formCr">
                     <input name="createName" type="text" id="name" required placeholder="Name">
 
                     <br>
@@ -147,7 +147,7 @@
         <div hidden id="update-form">
             <h2>Update</h2>
             <div style="text-align: center;">
-                <form method="post" id="form">
+                <form method="post" id="formUp">
                     <input name="updateName" type="text" id="name" required placeholder="Name">
 
                     <br>
@@ -237,6 +237,17 @@
 
             createButton.addEventListener('click', createClick);
             updateButton.addEventListener('click', updateClick);
+
+            const submitCr = () => {
+                document.getElementById('formCr').submit();
+            };
+
+            const submitUp = () => {
+                document.getElementById('formUp').submit();
+            }
+
+            document.getElementById('submitCr').addEventListener('click', submitCr);
+            document.getElementById('submitUp').addEventListener('click', submitUp);
         </script>
     </body>
 </html>
