@@ -22,8 +22,6 @@
             }
 
             #form {
-                padding-left: 43.5%;
-                padding-right: 55%;
                 padding-top: 1%;
             }
 
@@ -76,11 +74,15 @@
 
         <div>
         <h2>Login</h2>
-            <form method="post" id="form">
-                <input name="usernameLogin" type="text" id="username" required placeholder="Username">
+            <div style="text-align: center;">
+                <form method="post" id="form">
+                    <input name="usernameLogin" type="text" id="username" required placeholder="Username">
 
-                <input name="passwordLogin" type="password" id="password" required placeholder="Password">
-            </form>
+                    <br>
+
+                    <input name="passwordLogin" type="password" id="password" required placeholder="Password">
+                </form>
+            </div>
 
             <div style="text-align: center;">
                 <button id="submit">Submit</button>

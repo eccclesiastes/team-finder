@@ -22,8 +22,6 @@
             }
 
             #form {
-                padding-left: 43.5%;
-                padding-right: 55%;
                 padding-top: 1%;
             }
 
@@ -33,11 +31,6 @@
 
             h2 {
                 text-align: center;
-            }
-
-            #buttons {
-                margin-left: 46%;
-                margin-top: 1%;
             }
 
             input {
@@ -85,14 +78,18 @@
 
         <div id="create-form">
             <h2>Create</h2>
-            <form method="post" id="form">
-                <input name="newUserUsername" type="text" id="name" required placeholder="Username">
+            <div style="text-align: center;">
+                <form method="post" id="form">
+                    <input name="newUserUsername" type="text" id="name" required placeholder="Username">
 
-                <input name="newUserEmail" type="email" id="email" required placeholder="Email">
+                    <br>
 
-                <input name="username" type="text" id="username" required hidden>
-                <input name="password" type="text" id="password" required hidden>
-            </form>
+                    <input name="newUserEmail" type="email" id="email" required placeholder="Email">
+
+                    <input name="username" type="text" id="username" required hidden>
+                    <input name="password" type="text" id="password" required hidden>
+                </form>
+            </div>
 
             <div style="text-align: center;">
                 <button id="submit">Submit</button>

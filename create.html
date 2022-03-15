@@ -22,8 +22,6 @@
             }
 
             #form {
-                padding-left: 43.5%;
-                padding-right: 55%;
                 margin-top: 2%;
             }
 
@@ -49,7 +47,6 @@
 
             #submitCr, #submitUp {
                 margin-top: 20px;
-                margin-left: 48%;
             }
 
             button { 
@@ -93,67 +90,115 @@
 
         <div id="create-form">
             <h2>Create</h2>
-            <form method="post" id="form">
-                <input name="createName" type="text" id="name" required placeholder="Name">
+            <div style="text-align: center;">
+                <form method="post" id="form">
+                    <input name="createName" type="text" id="name" required placeholder="Name">
 
-                <input name="experience" type="text" id="experience" placeholder="Experience">
+                    <br>
 
-                <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications">
+                    <input name="experience" type="text" id="experience" placeholder="Experience">
 
-                <input name="year_joined" type="number" id="year_joined" required placeholder="Year Joined">
+                    <br>
 
-                <input name="location" type="text" id="location" required placeholder="Location">
+                    <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications">
 
-                <input name="ou" type="text" id="ou" required placeholder="OU">
+                    <br>
 
-                <input name="contact_info" type="text" id="contact_info" required placeholder="Contact">
+                    <input name="year_joined" type="number" id="year_joined" required placeholder="Year Joined">
 
-                <input name="grade" type="text" id="grade" required placeholder="Grade">
+                    <br>
 
-                <input name="skills" type="text" id="skills" required placeholder="Skills">
+                    <input name="location" type="text" id="location" required placeholder="Location">
 
-                <input name="current_project" type="text" id="current_project" required placeholder="Current Project">
+                    <br>
 
-                <input name="availability" type="text" id="availability" required placeholder="Availability">
+                    <input name="ou" type="text" id="ou" required placeholder="OU">
 
-                <input name="username" type="text" id="username" required hidden>
-                <input name="password" type="text" id="password" required hidden>
-            </form>
+                    <br>
 
-            <button id="submitCr">Submit</button>
+                    <input name="contact_info" type="text" id="contact_info" required placeholder="Contact">
+
+                    <br>
+
+                    <input name="grade" type="text" id="grade" required placeholder="Grade">
+
+                    <br>
+
+                    <input name="skills" type="text" id="skills" required placeholder="Skills">
+
+                    <br>
+
+                    <input name="current_project" type="text" id="current_project" required placeholder="Current Project">
+
+                    <br>
+
+                    <input name="availability" type="text" id="availability" required placeholder="Availability">
+
+                    <input name="username" type="text" id="username" required hidden>
+                    <input name="password" type="text" id="password" required hidden>
+                </form>
+            </div>
+
+            <div style="text-align: center;">
+                <button id="submitCr">Submit</button>
+            </div>
         </div>
 
         <div hidden id="update-form">
             <h2>Update</h2>
-            <form method="post" id="form">
-                <input name="updateName" type="text" id="name" required placeholder="Name">
+            <div style="text-align: center;">
+                <form method="post" id="form">
+                    <input name="updateName" type="text" id="name" required placeholder="Name">
 
-                <input name="experience" type="text" id="experience" placeholder="Experience">
+                    <br>
 
-                <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications">
+                    <input name="experience" type="text" id="experience" placeholder="Experience">
 
-                <input name="year_joined" type="number" id="year_joined" required placeholder="Year Joined">
+                    <br>
 
-                <input name="location" type="text" id="location" required placeholder="Location">
+                    <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications">
 
-                <input name="ou" type="text" id="ou" required placeholder="OU">
+                    <br>
 
-                <input name="contact_info" type="text" id="contact_info" required placeholder="Contact">
+                    <input name="year_joined" type="number" id="year_joined" required placeholder="Year Joined">
 
-                <input name="grade" type="text" id="grade" required placeholder="Grade">
+                    <br>
 
-                <input name="skills" type="text" id="skills" required placeholder="Skills">
+                    <input name="location" type="text" id="location" required placeholder="Location">
 
-                <input name="current_project" type="text" id="current_project" required placeholder="Current Project">
+                    <br>
 
-                <input name="availability" type="text" id="availability" required placeholder="Availability">
+                    <input name="ou" type="text" id="ou" required placeholder="OU">
 
-                <input name="username" type="text" id="usernameU" required hidden>
-                <input name="password" type="text" id="passwordU" required hidden>
+                    <br>
 
-            </form>
+                    <input name="contact_info" type="text" id="contact_info" required placeholder="Contact">
 
-            <button id="submitUp">Submit</button>
+                    <br>
+
+                    <input name="grade" type="text" id="grade" required placeholder="Grade">
+
+                    <br>
+
+                    <input name="skills" type="text" id="skills" required placeholder="Skills">
+
+                    <br>
+
+                    <input name="current_project" type="text" id="current_project" required placeholder="Current Project">
+
+                    <br>
+
+                    <input name="availability" type="text" id="availability" required placeholder="Availability">
+
+                    <input name="username" type="text" id="usernameU" required hidden>
+                    <input name="password" type="text" id="passwordU" required hidden>
+
+                </form>
+            </div>
+
+            <div style="text-align: center;">
+                <button id="submitUp">Submit</button>
+            </div>
         </div>
 
         <h4 hidden="true" style="color: red; text-align: center;">Error, please check if person (already) exists in database</h4>
