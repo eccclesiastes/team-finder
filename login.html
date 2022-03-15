@@ -27,13 +27,8 @@
                 padding-top: 1%;
             }
 
-            label {
-                width: 20%;
-            }
-
             #submit {
                 margin-top: 20px;
-                margin-left: 48%;
             }
 
             h2 {
@@ -55,12 +50,28 @@
             ::placeholder {
                 text-align: center;
             }
+
+            button { 
+                background-color: rgb(51, 51, 51);
+                border: 1px solid #555;
+                color: white;   
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border-radius: 8px;
+                cursor: pointer;
+                
+            }
+
+            button:hover {
+                background-color: rgb(85, 85, 85);
+            }
         </style>
     </head>
 
     <body>
         <div>
-            <h1>Team Finder!</h1>
+            <h1>Team Finder</h1>
         </div>
 
         <div>
@@ -71,7 +82,9 @@
                 <input name="passwordLogin" type="password" id="password" required placeholder="Password">
             </form>
 
-            <button id="submit">Submit</button>
+            <div style="text-align: center;">
+                <button id="submit">Submit</button>
+            </div>
         </div>
 
         <script>

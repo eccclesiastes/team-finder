@@ -19,25 +19,6 @@
                 margin: 0;
             }
 
-            #form {
-                padding-left: 45%;
-                padding-right: 55%;
-                padding-top: 2%;
-            }
-
-            label {
-                width: 20%;
-            }
-
-            #year-label, #project-label {
-                height: 150% !important;
-                width: 150% !important;
-            }
-
-            #submit {
-                margin-top: 20px;
-            }
-
             table {
                 margin-left: 8%;
                 margin-right: 18%;
@@ -57,11 +38,44 @@
             tr:hover {
                 background-color: lightgray;
             }
+
+            button { 
+                background-color: rgb(51, 51, 51);
+                border: 1px solid #555;
+                color: white;   
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            #btn {
+                width: 150px;
+                height: 60px;
+                background-color: rgb(51, 51, 51);
+                border: 1px solid #555;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: rgb(85, 85, 85);
+            }
             </style>
         </head>
         <body>
-        <h1>Shortlist</h1>
-        <br>
+        <h1>Team Finder</h1>
+
+        <div>
+            <h2 style="text-align: center;">Shortlist</h2>
+        </div>
+
         <div class="table">
             <table id="shortlist" style="border: 1px solid black">
                 <tbody>
@@ -83,7 +97,9 @@
             </table>
         </div>
 
-        <button onclick="window.clear()" id="btn" class="buttons" style="margin-left: 48.5% !important; margin-top: 3%;">Clear</button>
+        <div style="text-align: center;">
+            <button onclick="window.clear()" id="btn" class="buttons" style="margin-top: 3%;">Clear</button>
+        </div>
 
         <script>
             const personToTable = (person, i) => {
@@ -99,7 +115,7 @@
                     <td>${person.skills}</td>
                     <td>${person.current_project}</td>
                     <td>${person.availability}</td>
-                    <td><button onclick="btn(${i})" id="btn-${i + 1}">Remove</button></td>
+                    <td><button onclick="btn(${i})" id="btn-${i + 1}" class="remove">Remove</button></td>
                 </tr>`;
             };
 

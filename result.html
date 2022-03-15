@@ -40,8 +40,8 @@
             }
 
             table {
-                margin-left: 2%;
-                margin-right: 18%;
+                margin-left: 6%;
+                margin-right: 6%;
                 width: 84%;
                 text-align: center;
             }
@@ -62,12 +62,31 @@
             tr:hover {
                 background-color: lightgray;
             }
+
+            button { 
+                background-color: rgb(51, 51, 51);
+                border: 1px solid #555;
+                color: white;   
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: rgb(85, 85, 85);
+            }
             </style>
         </head>
 
         <body>
-        <h1>Result</h1>
-        <br>
+        <h1>Team Finder</h1>
+        
+        <div>
+            <h2 style="text-align: center;">Result</h2>
+        </div>
+
         <div class="table">
             <table id="results" style="border: 1px solid black">
                 <tr>
@@ -89,14 +108,12 @@
         </div>
 
         <br>
-        <br>
-        <br>
-        <h2 style="text-align: center;"><a href="/shortlist">Shortlist</a></h2>
+        <!-- <h2 style="text-align: center;"><a href="/shortlist">Shortlist</a></h2>
         <div class="table">
             <table id="shortlist" style="border: 1px solid black">
                 
             </table>
-        </div>
+        </div> -->
 
         <script>
             script-placeholder
@@ -105,8 +122,10 @@
             let removal = JSON.parse(localStorage.getItem('removal')) || [];
  
             function btn(i) {
-                document.getElementById('shortlist').insertAdjacentHTML("beforeend", `<tr><a href='#row-${i + 1}'>Person #${i + 1}</a></tr>`);
+                //document.getElementById('shortlist').insertAdjacentHTML("beforeend", `<tr><a href='#row-${i + 1}'>Person #${i + 1}</a></tr>`);
                 document.getElementById(`btn-${i + 1}`).disabled = true;
+                document.getElementById(`btn-${i + 1}`).style.backgroundColor = "rgb(85, 85, 85)";
+                document.getElementById(`btn-${i + 1}`).style.cursor = "not-allowed";
 
                 people.push(data[i]);
                 localStorage.removeItem('people');
@@ -147,6 +166,7 @@
             };
         </script>
 
+        <h4 style="text-align: center;"><a href="/shortlist" style="color: black !important; text-decoration: none !important;">Go to shortlist</a></h4>
         <h4 style="text-align: center;"><a href="/" style="color: black !important; text-decoration: none !important;">Back to home</a></h4>
     </body>
 </html>

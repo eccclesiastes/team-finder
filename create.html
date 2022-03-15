@@ -22,46 +22,71 @@
             }
 
             #form {
-                padding-left: 45%;
+                padding-left: 43.5%;
                 padding-right: 55%;
-                padding-top: 2%;
+                margin-top: 2%;
             }
 
-            label {
-                width: 20%;
+            input {
+                margin-bottom: 7.5px;
+                padding-left: 15px;
+                padding-right: 15px;
+                height: 20px;
+                text-align: center;
             }
 
-            #year-label, #project-label {
-                height: 150% !important;
-                width: 150% !important;
+            input:focus {
+                border: 1px solid #555;
             }
 
-            #submit {
-                margin-top: 20px;
+            ::placeholder {
+                text-align: center;
             }
 
             h2 {
                 text-align: center;
             }
 
-            #buttons {
-                margin-left: 46%;
-                margin-top: 1%;
+            #submitCr, #submitUp {
+                margin-top: 20px;
+                margin-left: 48%;
             }
 
-            button {
-                height: 50px;
-                width: 140px;
+            button { 
+                background-color: rgb(51, 51, 51);
+                border: 1px solid #555;
+                color: white;   
+                text-align: center;
+                text-decoration: none;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: rgb(85, 85, 85);
+            }
+
+            #create, #update {
+                width: 150px;
+                height: 60px;
+                margin-bottom: 1%;
+                background-color: rgb(51, 51, 51);
+                border: 1px solid #555;
+                color: white;
+                padding: 15px 32px;
+                text-decoration: none;
+                border-radius: 8px;
+                cursor: pointer;
             }
         </style>
     </head>
 
     <body>
         <div>
-            <h1>Team Finder!</h1>
+            <h1>Team Finder</h1>
         </div>
 
-        <div id="buttons">
+        <div style="text-align: center; margin-top: 1%;">
             <button id="create" hidden>Change to create</button>
             <button id="update">Change to update</button>
         </div>
@@ -69,87 +94,66 @@
         <div id="create-form">
             <h2>Create</h2>
             <form method="post" id="form">
-                <label for="name">Name</label>
-                <input name="createName" type="text" id="name" required>
+                <input name="createName" type="text" id="name" required placeholder="Name">
 
-                <label for="experience">Experience</label>
-                <input name="experience" type="text" id="experience">
+                <input name="experience" type="text" id="experience" placeholder="Experience">
 
-                <label for="qualifications">Qualifications</label>
-                <input name="qualifications" type="text" id="qualifications">
+                <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications">
 
-                <label for="year_joined" id="year-label">Year Joined</label>
-                <input name="year_joined" type="number" id="year_joined" required>
+                <input name="year_joined" type="number" id="year_joined" required placeholder="Year Joined">
 
-                <label for="location">Location</label>
-                <input name="location" type="text" id="location" required>
+                <input name="location" type="text" id="location" required placeholder="Location">
 
-                <label for="ou">OU</label>
-                <input name="ou" type="text" id="ou" required>
+                <input name="ou" type="text" id="ou" required placeholder="OU">
 
-                <label for="contact_info">Contact</label>
-                <input name="contact_info" type="text" id="contact_info" required>
+                <input name="contact_info" type="text" id="contact_info" required placeholder="Contact">
 
-                <label for="grade">Grade</label>
-                <input name="grade" type="text" id="grade" required>
+                <input name="grade" type="text" id="grade" required placeholder="Grade">
 
-                <label for="skills">Skills</label>
-                <input name="skills" type="text" id="skills" required>
+                <input name="skills" type="text" id="skills" required placeholder="Skills">
 
-                <label for="current_project" id="project-label">Current Project</label>
-                <input name="current_project" type="text" id="current_project" required>
+                <input name="current_project" type="text" id="current_project" required placeholder="Current Project">
 
-                <label for="availability">Availability</label>
-                <input name="availability" type="text" id="availability" required>
+                <input name="availability" type="text" id="availability" required placeholder="Availability">
 
                 <input name="username" type="text" id="username" required hidden>
                 <input name="password" type="text" id="password" required hidden>
-
-                <input type="submit" id="submit">
             </form>
+
+            <button id="submitCr">Submit</button>
         </div>
 
         <div hidden id="update-form">
             <h2>Update</h2>
             <form method="post" id="form">
-                <label for="name">Name</label>
-                <input name="updateName" type="text" id="name" required>
+                <input name="updateName" type="text" id="name" required placeholder="Name">
 
-                <label for="experience">Experience</label>
-                <input name="experience" type="text" id="experience">
+                <input name="experience" type="text" id="experience" placeholder="Experience">
 
-                <label for="qualifications">Qualifications</label>
-                <input name="qualifications" type="text" id="qualifications">
+                <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications">
 
-                <label for="year_joined" id="year-label">Year Joined</label>
-                <input name="year_joined" type="number" id="year_joined">
+                <input name="year_joined" type="number" id="year_joined" required placeholder="Year Joined">
 
-                <label for="location">Location</label>
-                <input name="location" type="text" id="location">
+                <input name="location" type="text" id="location" required placeholder="Location">
 
-                <label for="ou">OU</label>
-                <input name="ou" type="text" id="ou">
+                <input name="ou" type="text" id="ou" required placeholder="OU">
 
-                <label for="contact_info">Contact</label>
-                <input name="contact_info" type="text" id="contact_info">
+                <input name="contact_info" type="text" id="contact_info" required placeholder="Contact">
 
-                <label for="grade">Grade</label>
-                <input name="grade" type="text" id="grade">
+                <input name="grade" type="text" id="grade" required placeholder="Grade">
 
-                <label for="skills">Skills</label>
-                <input name="skills" type="text" id="skills">
+                <input name="skills" type="text" id="skills" required placeholder="Skills">
 
-                <label for="current_project" id="project-label">Current Project</label>
-                <input name="current_project" type="text" id="current_project">
+                <input name="current_project" type="text" id="current_project" required placeholder="Current Project">
 
-                <label for="availability">Availability</label>
-                <input name="availability" type="text" id="availability">
+                <input name="availability" type="text" id="availability" required placeholder="Availability">
 
                 <input name="username" type="text" id="usernameU" required hidden>
                 <input name="password" type="text" id="passwordU" required hidden>
 
-                <input type="submit" id="submit">
             </form>
+
+            <button id="submitUp">Submit</button>
         </div>
 
         <h4 hidden="true" style="color: red; text-align: center;">Error, please check if person (already) exists in database</h4>
