@@ -92,7 +92,7 @@ To access the admin panel, you have to use the `masterUsername` and `masterPassw
 
 ## Technologies
 
-> Node.js
+> Node.js >= 16.11.1
 
 > Express
 
@@ -104,7 +104,7 @@ To access the admin panel, you have to use the `masterUsername` and `masterPassw
 
 > Nodemailer
 
-> MySQL >= 8
+> MySQL >= 8.0
 
 ## To do
 
