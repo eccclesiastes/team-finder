@@ -34,7 +34,7 @@ Run `npm install` inside your console.
 
 Inside your MySQL, create a database.
 
-Inside that database, create a table called `users` (employee data) with this statement: 
+Inside that database, run this statement: 
 
 ```sql 
 CREATE TABLE `users` (
@@ -51,34 +51,20 @@ CREATE TABLE `users` (
   `availability` varchar(255) NOT NULL,
   PRIMARY KEY (`name`),
   UNIQUE KEY `contact_info` (`contact_info`)
-)
-```
+);
 
-![DB Schema](https://github.com/qtdceu/team_finder/blob/main/img/schema.png)
-
-Whilst inside the same database, create a table called `credentials` (admin login credentials) with this statement: 
-
-```sql
 CREATE TABLE `credentials` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `salt` varchar(255) NOT NULL,
   PRIMARY KEY (`username`)
-)
-```
+);
 
-![Credentials Schema](https://github.com/qtdceu/team_finder/blob/main/img/credentials_schema.png)
-
-Once again, in the same database, create a table called `logs` (admin activity logging) with this statement:
-
-```sql
 CREATE TABLE `logs` (
   `username` varchar(255) NOT NULL,
   `action` varchar(500) NOT NULL
-)
+);
 ```
-
-![Logs Schema](https://github.com/qtdceu/team_finder/blob/main/img/logs_schema.png)
 
 In `databaseConfig.js`, edit the `connection` variable's options to fit your setup. 
 
