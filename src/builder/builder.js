@@ -1,4 +1,5 @@
 const connection = require('../../databaseConfig.js').connection;
+const transporter = require('../../mailConfig.js').transporter;
 
 module.exports = {
     getStatement(desiredQualities) {
@@ -16,11 +17,11 @@ module.exports = {
         let sqlStatement = 'SELECT * FROM users WHERE';
 
         if (experience) {
-            sqlStatement += ` experience="${experience}" AND`;
+            sqlStatement += ` experience LIKE "%${experience}%" AND`;
         };
 
         if (qualifications) {
-            sqlStatement += ` qualifications="${qualifications}" AND`;
+            sqlStatement += ` qualifications LIKE "%${qualifications}%" AND`;
         };
 
         if (year_joined) {
@@ -28,31 +29,31 @@ module.exports = {
         };
 
         if (location) {
-            sqlStatement += ` location="${location}" AND`;
+            sqlStatement += ` location LIKE "%${location}%" AND`;
         };
 
         if (ou) {
-            sqlStatement += ` ou="${ou}" AND`;
+            sqlStatement += ` ou LIKE "%${ou}%" AND`;
         };
 
         if (contact_info) {
-            sqlStatement += ` contact_info="${contact_info}" AND`;
+            sqlStatement += ` contact_info LIKE "%${contact_info}%" AND`;
         };
 
         if (grade) {
-            sqlStatement += ` grade="${grade}" AND`;
+            sqlStatement += ` grade LIKE "%${grade}%" AND`;
         };
 
         if (skills) {
-            sqlStatement += ` skills="${skills}" AND`;
+            sqlStatement += ` skills LIKE "%${skills}%" AND`;
         };
 
         if (current_project) {
-            sqlStatement += ` current_project="${current_project}" AND`;
+            sqlStatement += ` current_project LIKE "%${current_project}%" AND`;
         };
 
         if (availability) {
-            sqlStatement += ` availability="${availability}" AND`;
+            sqlStatement += ` availability LIKE "%${availability}%" AND`;
         };
 
         let sqlToRun;
@@ -232,21 +233,11 @@ module.exports = {
     },
 
     sendPasswordEmail(email, username, password, callback) {
-        const nodemailer = require('nodemailer');
-
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: require('../../config.json').username,
-                pass: require('../../config.json').password,
-            },
-        });
-
         const messageToSend = {
             from: 'Team Finder',
             to: email,
             subject: 'Your administrator has given you moderation rights',
-            text: `Dear ${email}, \n\n Your organisation's administrator has granted you permission to update/create members on Team Finder. The login is as follows: \n\n Username: ${username} \n Password: ${password} \n Please contact your administrator for any further queries.`,
+            text: `Dear ${email}, \n\n Your organisation's administrator has granted you permission to update/create members on Team Finder. The login is as follows: \n\n Username: ${username} \n Password: ${password} \n\n Please contact your administrator for any further queries.`,
         };
 
         transporter.sendMail(messageToSend, (error, info) => {
