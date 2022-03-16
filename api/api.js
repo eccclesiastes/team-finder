@@ -83,7 +83,11 @@ router.post('/login', async (req, res, next) => {
             });
         } else if (inputtedUsername === masterUsername && inputtedPassword === masterPassword) {
             res.send(await readFile('./master.html', 'utf-8'));
-        };
+        } else {
+            const html = await readFile('./login.html', 'utf-8');
+            const replacedHtml = html.replace(`hidden="true"`, '');
+            res.send(replacedHtml);
+        }
     };
 
     /* ---------------------------------------------------------------------------------- */
@@ -221,7 +225,7 @@ router.post('/login', async (req, res, next) => {
 
             insertCredentials(req.body.newUserUsername, password, salt, async (result) => {
                 if (result) {
-                    const sent = sendPasswordEmail(req.body.newUserEmail, req.body.newUserUsername, passwordToHash, async (sent) => {
+                    sendPasswordEmail(req.body.newUserEmail, req.body.newUserUsername, passwordToHash, async (sent) => {
                         if (sent) {
                             const html = await readFile('./master.html', 'utf-8');
                             const replacedHtml = html.replace(`hidden="yes"`, '');
