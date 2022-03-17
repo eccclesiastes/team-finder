@@ -104,7 +104,7 @@ To access the admin panel, you have to use the `masterUsername` and `masterPassw
 
 - [x] Make website more eye pleasing
 
-- [ ] Similar results, not exact
+- [x] Similar results, not exact
 
 - [ ] Present results as a profile 'card'; break out of table; possibly add photos
 
