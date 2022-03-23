@@ -21,30 +21,6 @@
                 margin: 0;
             }
 
-            table {
-                margin-left: 6%;
-                margin-right: 6%;
-                width: 90%;
-                text-align: center;
-            }
-
-            /* #shortlist {
-                margin-left: 8% !important;
-            } */
-
-            tr, td {
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-
-            table, th, td {
-                border: 1px solid;
-            }
-
-            tr:hover {
-                background-color: lightgray;
-            }
-
             button { 
                 background-color: rgb(51, 51, 51);
                 border: 1px solid #555;
@@ -59,6 +35,18 @@
             button:hover {
                 background-color: rgb(85, 85, 85);
             }
+
+            .card {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                width: 300px;
+                margin: auto;
+                text-align: center;
+                margin-bottom: 1%;
+            }
+
+            .remove {
+                margin-bottom: 1%;
+            }
             </style>
         </head>
 
@@ -69,33 +57,11 @@
             <h2 style="text-align: center;">Result</h2>
         </div>
 
-        <div style="text-align: center;">
-            <table id="results" style="border: 1px solid black">
-                <tr>
-                    <th>Name</th>
-                    <th>Experience</th>
-                    <th>Qualifications</th>
-                    <th>Year Joined</th>
-                    <th>Location</th>
-                    <th>OU</th>
-                    <th>Contact</th>
-                    <th>Grade</th>
-                    <th>Skills</th>
-                    <th>Current Project</th>
-                    <th>Availability</th>
-                    <th>Shortlist</th>
-                    <th>Remove</th>
-                </tr>
-            </table>
+        <div id="cards-container" style="flex-wrap: wrap; display: flex;">
+    
         </div>
 
         <br>
-        <!-- <h2 style="text-align: center;"><a href="/shortlist">Shortlist</a></h2>
-        <div class="table">
-            <table id="shortlist" style="border: 1px solid black">
-                
-            </table>
-        </div> -->
 
         <script>
             script-placeholder
@@ -115,8 +81,8 @@
             };
 
             function remove(i) {
-                const node = document.getElementById(`remove-${i + 1}`).parentNode.parentNode.parentNode;
-                document.getElementById('results').removeChild(node);
+                const node = document.getElementById(`remove-${i + 1}`).parentNode.parentNode;
+                document.getElementById('cards-container').removeChild(node);
 
                 removal.push(data[i]);
                 localStorage.removeItem('removal');
@@ -124,26 +90,26 @@
             };
 
             const personToTable = (person, i) => {
-                return `<tr id="row-${i + 1}">
-                    <td>${person.name}</td>
-                    <td>${person.experience}</td>
-                    <td>${person.qualifications}</td>
-                    <td>${person.year_joined}</td>
-                    <td>${person.location}</td>
-                    <td>${person.ou}</td>
-                    <td>${person.contact_info}</td>
-                    <td>${person.grade}</td>
-                    <td>${person.skills}</td>
-                    <td>${person.current_project}</td>
-                    <td>${person.availability}</td>
-                    <td><button onclick="btn(${i})" id="btn-${i + 1}">Shortlist</button></td>
-                    <td><button onclick="remove(${i})" id="remove-${i + 1}">Remove</button></td>
-                </tr>`;
+                return `<div id="card-${i + 1}" class="card">
+                    <h2>${person.name}</h2>
+                    <p>Experience: ${person.experience || 'None'}</p>
+                    <p>Qualifications: ${person.qualifications || 'None'}</p>
+                    <p>Year Joined: ${person.year_joined}</p>
+                    <p>Location: ${person.location}</p>
+                    <p>OU: ${person.ou}</p>
+                    <p>Contact: ${person.contact_info}</p>
+                    <p>Grade: ${person.grade}</p>
+                    <p>Skills: ${person.skills}</p>
+                    <p>Current Project: ${person.current_project}</td>
+                    <p>Availability: ${person.availability}</p>
+                    <p><button onclick="btn(${i})" id="btn-${i + 1}">Shortlist</button></p>
+                    <p><button onclick="remove(${i})" id="remove-${i + 1}" class="remove">Remove</button></p>
+                </div>`;
             };
 
             for (let i = 0; i < data.length; i++) {
                 if (!JSON.stringify(removal).includes(JSON.stringify(data[i])) && !JSON.stringify(people).includes(JSON.stringify(data[i]))) {
-                    document.getElementById('results').insertAdjacentHTML("beforeend", personToTable(data[i], i));
+                    document.getElementById('cards-container').insertAdjacentHTML("beforeend", personToTable(data[i], i));
                 };
             };
         </script>
