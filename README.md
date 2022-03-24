@@ -49,6 +49,7 @@ CREATE TABLE `users` (
   `skills` varchar(255) NOT NULL,
   `current_project` varchar(255) NOT NULL,
   `availability` varchar(255) NOT NULL,
+  `profile_pic` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`name`),
   UNIQUE KEY `contact_info` (`contact_info`)
 );
