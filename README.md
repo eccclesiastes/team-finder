@@ -109,7 +109,7 @@ To access the admin panel, you have to use the `masterUsername` and `masterPassw
 
 - [x] Present results as a profile 'card', break out of table
 
-- [ ] Add photos to results
+- [x] Add photos to results
 
 ## License 
 

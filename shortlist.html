@@ -80,6 +80,7 @@
         <script>
             const personToTable = (person, i) => {
                 return `<div id="card-${i + 1}" class="card">
+                    <img src="${person.profile_pic || './img/default-profile-picture.png'}" alt="Profile picture" height="140" width="140" style="margin-top: 7%;">
                     <h2>${person.name}</h2>
                     <p>Experience: ${person.experience || 'None'}</p>
                     <p>Qualifications: ${person.qualifications || 'None'}</p>
