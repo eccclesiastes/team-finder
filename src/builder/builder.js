@@ -95,9 +95,10 @@ module.exports = {
         const skills = qualities.skills;
         const current_project = qualities.current_project;
         const availability = qualities.availability;
+        const profile_pic = qualities.profile_pic;
 
         try {
-            connection.execute(`INSERT INTO users (name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability], (err, result) => {
+            connection.execute(`INSERT INTO users (name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability, profile_pic) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability, profile_pic], (err, result) => {
                 callback(result);
             });
         } catch (e) {
@@ -116,6 +117,7 @@ module.exports = {
         const newSkills = qualities.skills;
         const newCurrent_project = qualities.current_project;
         const newAvailability = qualities.availability;
+        const newProfilePic = qualities.profile_pic;
 
         let sqlStatement = 'UPDATE users SET';
 
@@ -158,6 +160,10 @@ module.exports = {
         if (newAvailability) {
             sqlStatement += ` availability="${newAvailability}",`;
         };
+
+        if (newProfilePic) {
+            sqlStatement += ` profile_pic="${newProfilePic}",`;
+        }
 
         let sqlToRun;
 
@@ -208,8 +214,9 @@ module.exports = {
         const skills = qualities.skills;
         const current_project = qualities.current_project;
         const availability = qualities.availability;
+        const profile_pic = qualities.profile_pic;
 
-        return `INSERT INTO users (name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability) values (${name}, ${experience}, ${qualifications}, ${year_joined}, ${location}, ${ou}, ${contact_info}, ${grade}, ${skills}, ${current_project}, ${availability})`
+        return `INSERT INTO users (name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability, profile_pic) values (${name}, ${experience}, ${qualifications}, ${year_joined}, ${location}, ${ou}, ${contact_info}, ${grade}, ${skills}, ${current_project}, ${availability}, ${profile_pic})`;
     },
 
     logAction(username, statement, callback) {
