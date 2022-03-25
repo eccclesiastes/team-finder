@@ -241,7 +241,7 @@ module.exports = {
 
     sendPasswordEmail(email, username, password, callback) {
         const messageToSend = {
-            from: 'Team Finder <teamfinder@gmail.com>',
+            from: `Team Finder <${require('../../config.json').username}>`,
             to: email,
             subject: 'Your administrator has given you moderation rights',
             text: `Dear ${email}, \n\n Your organisation's administrator has granted you permission to update/create members on Team Finder. The login is as follows: \n\n Username: ${username} \n Password: ${password} \n\n Please contact your administrator for any further queries.`,
