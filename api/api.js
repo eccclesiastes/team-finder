@@ -62,7 +62,7 @@ router.post('/login', async (req, res, next) => {
         if (inputtedUsername !== masterUsername && inputtedPassword !== masterPassword) {
             getCorrectPassword(inputtedUsername, async (result) => {
 
-                if (!result[0]) {
+                if (!result || !result[0]) {
                     const html = await readFile('./login.html', 'utf-8');
                     const replacedHtml = html.replace(`hidden="true"`, '');
                     return res.send(replacedHtml);
@@ -112,7 +112,7 @@ router.post('/login', async (req, res, next) => {
 
         getCorrectPassword(req.body.username, async (result) => {
 
-            if (!result[0]) {
+            if (!result || !result[0]) {
                 const html = await readFile('./login.html', 'utf-8');
                 const replacedHtml = html.replace(`hidden="error"`, '');
                 return res.send(replacedHtml);
@@ -164,7 +164,7 @@ router.post('/login', async (req, res, next) => {
 
         getCorrectPassword(req.body.username, async (result) => {
 
-            if (!result[0]) {
+            if (!result || !result[0]) {
                 const html = await readFile('./login.html', 'utf-8');
                 const replacedHtml = html.replace(`hidden="error"`, '');
                 return res.send(replacedHtml);
