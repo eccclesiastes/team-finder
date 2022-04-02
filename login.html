@@ -49,7 +49,7 @@
                 text-align: center;
             }
 
-            button { 
+            #submit { 
                 background-color: rgb(51, 51, 51);
                 border: 1px solid #555;
                 color: white;   
@@ -58,10 +58,9 @@
                 display: inline-block;
                 border-radius: 8px;
                 cursor: pointer;
-                
             }
 
-            button:hover {
+            #submit:hover {
                 background-color: rgb(85, 85, 85);
             }
         </style>
@@ -80,12 +79,12 @@
 
                     <br>
 
-                    <input name="passwordLogin" type="password" id="password" required placeholder="Password">
-                </form>
-            </div>
+                    <input name="passwordLogin" type="password" id="password" required placeholder="Password"> 
+                
+                    <br>
 
-            <div style="text-align: center;">
-                <button id="submit">Submit</button>
+                    <input id="submit" type="submit">
+                </form>
             </div>
         </div>
 
@@ -95,7 +94,6 @@
                 localStorage.removeItem('password');
                 localStorage.setItem('username', document.getElementById('username').value);
                 localStorage.setItem('password', document.getElementById('password').value);
-                document.getElementById('form').submit();
             };
 
             document.getElementById('submit').addEventListener('click', submit);

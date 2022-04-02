@@ -49,7 +49,7 @@
                 text-align: center;
             }
 
-            button { 
+            #submit { 
                 background-color: rgb(51, 51, 51);
                 border: 1px solid #555;
                 color: white;   
@@ -61,7 +61,7 @@
                 
             }
 
-            button:hover {
+            #submit:hover {
                 background-color: rgb(85, 85, 85);
             }
         </style>
@@ -86,13 +86,13 @@
 
                     <input name="newUserEmail" type="email" id="email" required placeholder="Email">
 
+                    <br>
+
+                    <input id="submit" type="submit">
+
                     <input name="username" type="text" id="username" required hidden>
                     <input name="password" type="text" id="password" required hidden>
                 </form>
-            </div>
-
-            <div style="text-align: center;">
-                <button id="submit">Submit</button>
             </div>
         </div>
 
@@ -105,12 +105,6 @@
         <script>
             document.getElementById('username').setAttribute('value', localStorage.getItem('username'));
             document.getElementById('password').setAttribute('value', localStorage.getItem('password'));
-
-            const submit = () => {
-                document.getElementById('form').submit();
-            };
-
-            document.getElementById('submit').addEventListener('click', submit);
         </script>
     </body>
 </html>
