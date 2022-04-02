@@ -191,6 +191,12 @@ router.post('/login', async (req, res, next) => {
                     logAction(req.body.username, sqlStatement, async (result) => {
                         if (result) {
                             updateUser(sqlStatement, async (result) => {
+                                if (!result) {
+                                    const html = await readFile('./create.html', 'utf-8');
+                                    const replacedHtml = html.replace(`hidden="true"`, '');
+                                    return res.send(replacedHtml);
+                                };
+
                                 if (result.affectedRows > 0) {
                                     const html = await readFile('./create.html', 'utf-8');
                                     const replacedHtml = html.replace(`hidden="yes"`, '');
