@@ -74,7 +74,7 @@
         <div>
         <h2>Login</h2>
             <div style="text-align: center;">
-                <form method="post" id="form">
+                <form id="form">
                     <input name="usernameLogin" type="text" id="username" required placeholder="Username">
 
                     <br>
@@ -88,18 +88,9 @@
             </div>
         </div>
 
-        <script>
-            const submit = () => {
-                localStorage.removeItem('username');
-                localStorage.removeItem('password');
-                localStorage.setItem('username', document.getElementById('username').value);
-                localStorage.setItem('password', document.getElementById('password').value);
-            };
-
-            document.getElementById('submit').addEventListener('click', submit);
-        </script>
-
-        <h4 hidden="true" style="color: red; text-align: center;">Incorrect Credentials</h4>
+        <h4 id="credentials-error" style="color: red; text-align: center;"></h4>
         <h4 style="text-align: center;"><a href="/" style="color: black !important; text-decoration: none !important;">Back to home</a></h4>
+
+        <script src="./scripts/loginScript.js"></script>
     </body>
 </html>
