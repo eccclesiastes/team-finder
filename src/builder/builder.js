@@ -84,18 +84,18 @@ module.exports = {
     },
 
     createUser(qualities, callback) {
-        const name = qualities.createName
-        const experience = qualities.experience;
-        const qualifications = qualities.qualifications;
-        const year_joined = qualities.year_joined;
-        const location = qualities.location;
-        const ou = qualities.ou;
-        const contact_info = qualities.contact_info;
-        const grade = qualities.grade;
-        const skills = qualities.skills;
-        const current_project = qualities.current_project;
-        const availability = qualities.availability;
-        const profile_pic = qualities.profile_pic;
+        const name = qualities.ccreateName
+        const experience = qualities.cexperience;
+        const qualifications = qualities.cqualifications;
+        const year_joined = qualities.cyear_joined;
+        const location = qualities.clocation;
+        const ou = qualities.cou;
+        const contact_info = qualities.ccontact_info;
+        const grade = qualities.cgrade;
+        const skills = qualities.cskills;
+        const current_project = qualities.ccurrent_project;
+        const availability = qualities.cavailability;
+        const profile_pic = qualities.cprofile_pic;
 
         try {
             connection.execute(`INSERT INTO users (name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability, profile_pic) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [name, experience, qualifications, year_joined, location, ou, contact_info, grade, skills, current_project, availability, profile_pic], (err, result) => {
@@ -108,16 +108,16 @@ module.exports = {
 
     getUpdateStatement(qualities) {
         const name = qualities.updateName
-        const newExperience = qualities.experience;
-        const newQualifications = qualities.qualifications;
-        const newLocation = qualities.location;
-        const newOu = qualities.ou;
-        const newContact_info = qualities.contact_info;
-        const newGrade = qualities.grade;
-        const newSkills = qualities.skills;
-        const newCurrent_project = qualities.current_project;
-        const newAvailability = qualities.availability;
-        const newProfilePic = qualities.profile_pic;
+        const newExperience = qualities.uexperience;
+        const newQualifications = qualities.uqualifications;
+        const newLocation = qualities.ulocation;
+        const newOu = qualities.uou;
+        const newContact_info = qualities.ucontact_info;
+        const newGrade = qualities.ugrade;
+        const newSkills = qualities.uskills;
+        const newCurrent_project = qualities.ucurrent_project;
+        const newAvailability = qualities.uavailability;
+        const newProfilePic = qualities.uprofile_pic;
 
         let sqlStatement = 'UPDATE users SET';
 
