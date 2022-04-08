@@ -80,31 +80,24 @@
             <h2>Create</h2>
             <div style="text-align: center;">
                 <form method="post" id="form">
-                    <input name="newUserUsername" type="text" id="name" required placeholder="Username">
+                    <input name="newUserUsername" type="text" id="newUserUsername" required placeholder="Username">
 
                     <br>
 
-                    <input name="newUserEmail" type="email" id="email" required placeholder="Email">
+                    <input name="newUserEmail" type="email" id="newUserEmail" required placeholder="Email">
 
                     <br>
 
                     <input id="submit" type="submit">
-
-                    <input name="username" type="text" id="username" required hidden>
-                    <input name="password" type="text" id="password" required hidden>
                 </form>
             </div>
         </div>
 
-        <h4 hidden="true" style="color: red; text-align: center;">Error, please check if person already exists in database</h4>
-        <h4 hidden="error" style="color: red; text-align: center;">Error, missing/invalid credentials</h4>
-        <h4 hidden="email-error" style="color: red; text-align: center;">Error, email unable to be sent</h4>
-        <h4 hidden="yes" style="color: green; text-align: center;" id="success-message">Success</h4>
+        <h4 style="color: red; text-align: center;" id="message"></h4>
+        <h4 style="color: green; text-align: center;" id="success"></h4>
+
         <h4 style="text-align: center;"><a href="/" style="color: black !important; text-decoration: none !important;">Back to home</a></h4>
 
-        <script>
-            document.getElementById('username').setAttribute('value', localStorage.getItem('username'));
-            document.getElementById('password').setAttribute('value', localStorage.getItem('password'));
-        </script>
+        <script src="./scripts/masterScript.js"></script>
     </body>
 </html>
