@@ -92,58 +92,55 @@
             <h2>Create</h2>
             <div style="text-align: center;">
                 <form method="post" id="formCr">
-                    <input name="createName" type="text" id="name" required placeholder="Name" />
+                    <input name="createName" type="text" id="createName" required placeholder="Name" />
 
                     <br>
 
-                    <input name="experience" type="text" id="experience" placeholder="Experience" />
+                    <input name="experience" type="text" id="cexperience" placeholder="Experience" />
 
                     <br>
 
-                    <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications" />
+                    <input name="qualifications" type="text" id="cqualifications" placeholder="Qualifications" />
 
                     <br>
 
-                    <input name="year_joined" type="number" id="year_joined" required placeholder="Year Joined" />
+                    <input name="year_joined" type="number" id="cyear_joined" required placeholder="Year Joined" />
 
                     <br>
 
-                    <input name="location" type="text" id="location" required placeholder="Location" />
+                    <input name="location" type="text" id="clocation" required placeholder="Location" />
 
                     <br>
 
-                    <input name="ou" type="text" id="ou" required placeholder="OU" />
+                    <input name="ou" type="text" id="cou" required placeholder="OU" />
 
                     <br>
 
-                    <input name="contact_info" type="text" id="contact_info" required placeholder="Contact" />
+                    <input name="contact_info" type="text" id="ccontact_info" required placeholder="Contact" />
 
                     <br>
 
-                    <input name="grade" type="text" id="grade" required placeholder="Grade">
+                    <input name="grade" type="text" id="cgrade" required placeholder="Grade">
 
                     <br>
 
-                    <input name="skills" type="text" id="skills" required placeholder="Skills">
+                    <input name="skills" type="text" id="cskills" required placeholder="Skills">
 
                     <br>
 
-                    <input name="current_project" type="text" id="current_project" required placeholder="Current Project">
+                    <input name="current_project" type="text" id="ccurrent_project" required placeholder="Current Project">
 
                     <br>
 
-                    <input name="availability" type="text" id="availability" required placeholder="Availability">
+                    <input name="availability" type="text" id="cavailability" required placeholder="Availability">
 
                     <br>
 
-                    <input name="profile_pic" type="text" id="profile_pic" placeholder="Profile Picture">
+                    <input name="profile_pic" type="text" id="cprofile_pic" placeholder="Profile Picture">
 
                     <br> 
 
                     <input id="submitCr" type="submit">
-
-                    <input name="username" type="text" id="username" required hidden>
-                    <input name="password" type="text" id="password" required hidden>
                 </form>
             </div>
         </div>
@@ -152,99 +149,64 @@
             <h2>Update</h2>
             <div style="text-align: center;">
                 <form method="post" id="formUp">
-                    <input name="updateName" type="text" id="name" required placeholder="Name">
+                    <input name="updateName" type="text" id="updateName" required placeholder="Name">
 
                     <br>
 
-                    <input name="experience" type="text" id="experience" placeholder="Experience">
+                    <input name="experience" type="text" id="uexperience" placeholder="Experience">
 
                     <br>
 
-                    <input name="qualifications" type="text" id="qualifications" placeholder="Qualifications">
+                    <input name="qualifications" type="text" id="uqualifications" placeholder="Qualifications">
 
                     <br>
 
-                    <input name="year_joined" type="number" id="year_joined" placeholder="Year Joined">
+                    <input name="year_joined" type="number" id="uyear_joined" placeholder="Year Joined">
 
                     <br>
 
-                    <input name="location" type="text" id="location" placeholder="Location">
+                    <input name="location" type="text" id="ulocation" placeholder="Location">
 
                     <br>
 
-                    <input name="ou" type="text" id="ou" placeholder="OU">
+                    <input name="ou" type="text" id="uou" placeholder="OU">
 
                     <br>
 
-                    <input name="contact_info" type="text" id="contact_info" placeholder="Contact">
+                    <input name="contact_info" type="text" id="ucontact_info" placeholder="Contact">
 
                     <br>
 
-                    <input name="grade" type="text" id="grade" placeholder="Grade">
+                    <input name="grade" type="text" id="ugrade" placeholder="Grade">
 
                     <br>
 
-                    <input name="skills" type="text" id="skills" placeholder="Skills">
+                    <input name="skills" type="text" id="uskills" placeholder="Skills">
 
                     <br>
 
-                    <input name="current_project" type="text" id="current_project" placeholder="Current Project">
+                    <input name="current_project" type="text" id="ucurrent_project" placeholder="Current Project">
 
                     <br>
 
-                    <input name="availability" type="text" id="availability" placeholder="Availability">
+                    <input name="availability" type="text" id="uavailability" placeholder="Availability">
 
                     <br>
 
-                    <input name="profile_pic" type="text" id="profile_pic" placeholder="Profile Picture">
+                    <input name="profile_pic" type="text" id="uprofile_pic" placeholder="Profile Picture">
 
                     <br>
 
                     <input id="submitUp" type="submit">
-
-                    <input name="username" type="text" id="usernameU" required hidden>
-                    <input name="password" type="text" id="passwordU" required hidden>
-
                 </form>
             </div>
         </div>
 
-        <h4 hidden="true" style="color: red; text-align: center;">Error, please check if person (already) exists in database</h4>
-        <h4 hidden="error" style="color: red; text-align: center;">Error, missing/invalid credentials</h4>
-        <h4 hidden="log-error" style="color: red; text-align: center;">Error, action unable to be logged</h4>
-        <h4 hidden="yes" style="color: green; text-align: center;" id="success-message">Success</h4>
+        <h4 style="color: red; text-align: center;" id="error"></h4>
+        <h4 style="color: green; text-align: center;" id="success"></h4>
+
         <h4 style="text-align: center;"><a href="/" style="color: black !important; text-decoration: none !important;">Back to home</a></h4>
 
-        <script>
-            document.getElementById('username').setAttribute('value', localStorage.getItem('username')); 
-            document.getElementById('password').setAttribute('value', localStorage.getItem('password'));
-            document.getElementById('usernameU').setAttribute('value', localStorage.getItem('username')); 
-            document.getElementById('passwordU').setAttribute('value', localStorage.getItem('password'));
-
-            const create = document.getElementById('create-form');
-            const update = document.getElementById('update-form');
-            const createButton = document.getElementById('create');
-            const updateButton = document.getElementById('update');
-            const successMessage = document.getElementById('success-message');
-
-            const createClick = () => {
-                update.hidden = true;
-                createButton.hidden = true;
-                create.hidden = false;
-                updateButton.hidden = false;
-                successMessage.hidden = true;
-            };
-
-            const updateClick = () => {
-                create.hidden = true;
-                updateButton.hidden = true;
-                update.hidden = false;
-                createButton.hidden = false;
-                successMessage.hidden = true;
-            };
-
-            createButton.addEventListener('click', createClick);
-            updateButton.addEventListener('click', updateClick);
-        </script>
+        <script src="./scripts/createScript.js"></script>
     </body>
 </html>

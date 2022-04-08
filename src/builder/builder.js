@@ -84,7 +84,7 @@ module.exports = {
     },
 
     createUser(qualities, callback) {
-        const name = qualities.ccreateName
+        const name = qualities.createName
         const experience = qualities.cexperience;
         const qualifications = qualities.cqualifications;
         const year_joined = qualities.cyear_joined;
