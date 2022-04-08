@@ -31,10 +31,18 @@ router.get('/shortlist', async (req, res, next) => {
     res.send(await readFile('./shortlist.html', 'utf-8'));
 });
 
+router.get('/create', async (req, res, next) => {
+    res.send(await readFile('./create.html', 'utf-8'));
+});
+
+router.get('/master', async (req, res, next) => {
+    res.send(await readFile('./master.html', 'utf-8'));
+});
+
 router.post('/search', async (req, res, next) => {
     const sqlStatement = getStatement(req.body);
 
-    const jsonQuery = getPossibleUsers(sqlStatement, async (result) => {
+    getPossibleUsers(sqlStatement, async (result) => {
         const html = await readFile('./result.html', 'utf-8');
         let script = '';
 
@@ -63,9 +71,7 @@ router.post('/login', async (req, res, next) => {
             getCorrectPassword(inputtedUsername, async (result) => {
 
                 if (!result || !result[0]) {
-                    const html = await readFile('./login.html', 'utf-8');
-                    const replacedHtml = html.replace(`hidden="true"`, '');
-                    return res.send(replacedHtml);
+                    return res.status(401).json({ message: 'Invalid Credentials' });
                 };
 
                 const resultPassword = result[0].password;
@@ -79,194 +85,153 @@ router.post('/login', async (req, res, next) => {
                 const hashedPassword = hashPassword(inputtedPassword);
 
                 if (hashedPassword) {
-                    const html = await readFile('./create.html', 'utf-8');
-                    res.send(html);
+                    return res.status(200).json({ location: 'http://localhost:8080/create' });
                 } else {
-                    const html = await readFile('./login.html', 'utf-8');
-                    const replacedHtml = html.replace(`hidden="true"`, '');
-                    res.send(replacedHtml);
+                    return res.status(401).json({ message: 'Invalid Credentials' });
                 };
             });
         } else if (inputtedUsername === masterUsername && inputtedPassword === masterPassword) {
-            res.send(await readFile('./master.html', 'utf-8'));
+            return res.status(200).json({ location: 'http://localhost:8080/master'});
         } else {
-            const html = await readFile('./login.html', 'utf-8');
-            const replacedHtml = html.replace(`hidden="true"`, '');
-            res.send(replacedHtml);
-        }
+            return res.status(401).json({ message: 'Invalid Credentials' });
+        };
+    };
+});
+
+router.post('/create', async (req, res, next) => {
+    if (!req.body.username || !req.body.password) {
+        return res.status(401).json({ message: 'Error, missing/invalid credentials' });
     };
 
-    /* ---------------------------------------------------------------------------------- */
+    getCorrectPassword(req.body.username, async (result) => {
 
-    const createName = req.body.createName;
-    const updateName = req.body.updateName;
-    const createNewName = req.body.newUserUsername;
-
-    if (createName) {
-
-        if (!req.body.username || !req.body.password) {
-            const html = await readFile('./create.html', 'utf-8');
-            const replacedHtml = html.replace(`hidden="error"`, '');
-            return res.send(replacedHtml);
+        if (!result || !result[0]) {
+            return res.status(401).json({ message: 'Error, missing/invalid credentials' });
         };
 
-        getCorrectPassword(req.body.username, async (result) => {
+        const resultPassword = result[0].password;
+        const resultSalt = result[0].salt;
 
-            if (!result || !result[0]) {
-                const html = await readFile('./login.html', 'utf-8');
-                const replacedHtml = html.replace(`hidden="error"`, '');
-                return res.send(replacedHtml);
-            };
+        const hashPassword = (password) => {
+            const hash = crypto.pbkdf2Sync(password, resultSalt, 1000, 64, 'sha512').toString('hex');
+            return hash === resultPassword;
+        };
 
-            const resultPassword = result[0].password;
-            const resultSalt = result[0].salt;
+        const hashedPassword = hashPassword(req.body.password);
 
-            const hashPassword = (password) => {
-                const hash = crypto.pbkdf2Sync(password, resultSalt, 1000, 64, 'sha512').toString('hex');
-                return hash === resultPassword;
-            };
+        if (hashedPassword) {
+            logAction(req.body.username, getCreateStatementLogging(req.body), async (result) => {
+                if (result) {
+                    createUser(req.body, async (result) => {
+                        if (result) {
+                            return res.status(201).json({ message: 'Success' });
+                        } else {
+                            return res.status(409).json({ message: 'Error, please check if person (already) exists in database' });
+                        };
+                    });
+                } else {
+                    return res.status(500).json({ message: 'Error, action unable to be logged' });
+                };
+            });
+        } else {
+            return res.status(401).json({ message: 'Error, missing/invalid credentials' });
+        };
+    });
+});
 
-            const hashedPassword = hashPassword(req.body.password);
+router.put('/create', async (req, res, next) => {
+    if (!req.body.username || !req.body.password) {
+        return res.status(401).json({ message: 'Error, missing/invalid credentials' });
+    };
 
-            if (hashedPassword) {
-                logAction(req.body.username, getCreateStatementLogging(req.body), async (result) => {
+    getCorrectPassword(req.body.username, async (result) => {
+
+        if (!result || !result[0]) {
+            return res.status(401).json({ message: 'Error, missing/invalid credentials' });
+        };
+
+        const resultPassword = result[0].password;
+        const resultSalt = result[0].salt;
+
+        const hashPassword = (password) => {
+            const hash = crypto.pbkdf2Sync(password, resultSalt, 1000, 64, 'sha512').toString('hex');
+            return hash === resultPassword;
+        };
+
+        const hashedPassword = hashPassword(req.body.password);
+
+        if (hashedPassword) {
+            const sqlStatement = getUpdateStatement(req.body);
+
+            if (sqlStatement === 1) {
+                return res.status(401).json({ message: 'Error, please check if person (already) exists in database' });
+            } else {
+                logAction(req.body.username, sqlStatement, async (result) => {
                     if (result) {
-                        createUser(req.body, async (result) => {
-                            if (result) {
-                                const html = await readFile('./create.html', 'utf-8');
-                                const replacedHtml = html.replace(`hidden="yes"`, '');
-                                res.send(replacedHtml);
+                        updateUser(sqlStatement, async (result) => {
+                            if (!result) {
+                                return res.status(409).json({ message: 'Error, please check if person (already) exists in database' });
+                            };
+
+                            if (result.affectedRows > 0) {
+                                return res.status(201).json({ message: 'Success' });
                             } else {
-                                const html = await readFile('./create.html', 'utf-8');
-                                const replacedHtml = html.replace(`hidden="true"`, '');
-                                res.send(replacedHtml);
+                                return res.status(409).json({ message: 'Error, please check if person (already) exists in database' });
                             };
                         });
                     } else {
-                        const html = await readFile('./create.html', 'utf-8');
-                        const replacedHtml = html.replace(`hidden="log-error"`, '');
-                        res.send(replacedHtml);
+                        return res.status(500).json({ message: 'Error, action unable to be logged' });
+                    };
+                });
+            };
+        } else {
+            return res.status(401).json({ message: 'Error, missing/invalid credentials' });
+        };
+    });
+});
+
+router.post('/master', async (req, res, next) => {
+    const masterUsername = require('../config.json').masterUsername;
+    const masterPassword = require('../config.json').masterPassword;
+
+    if (!req.body.username || !req.body.password) {
+        return res.status(401).json({ message: 'Error, missing/invalid credentials' });
+    };
+
+    if (req.body.username === masterUsername && req.body.password === masterPassword) {
+        const passwordToHash = passwordGenerator.generate({
+            length: 20,
+            numbers: true,
+            symbols: true,
+            lowercase: true,
+            uppercase: true,
+            strict: true
+        });
+
+        let salt = crypto.randomBytes(16).toString('hex');
+
+        const hashPassword = (password) => {
+            const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
+            return hash;
+        };
+
+        const password = hashPassword(passwordToHash);
+
+        insertCredentials(req.body.newUserUsername, password, salt, async (result) => {
+            if (result) {
+                sendPasswordEmail(req.body.newUserEmail, req.body.newUserUsername, passwordToHash, async (sent) => {
+                    if (sent) {
+                        return res.status(201).json({ message: 'Success' });
+                    } else {
+                        return res.status(500).json({ message: 'Error, email unable to be sent' });
                     };
                 });
             } else {
-                const html = await readFile('./create', 'utf-8');
-                const replacedHtml = html.replace(`hidden="true"`, '');
-                res.send(replacedHtml);
+                return res.status(409).json({ message: 'Error, please check if person (already) exists in database' });
             };
         });
-    } else if (updateName) {
-
-        if (!req.body.username || !req.body.password) {
-            const html = await readFile('./create.html', 'utf-8');
-            const replacedHtml = html.replace(`hidden="error"`, '');
-            return res.send(replacedHtml);
-        };
-
-        getCorrectPassword(req.body.username, async (result) => {
-
-            if (!result || !result[0]) {
-                const html = await readFile('./login.html', 'utf-8');
-                const replacedHtml = html.replace(`hidden="error"`, '');
-                return res.send(replacedHtml);
-            };
-
-            const resultPassword = result[0].password;
-            const resultSalt = result[0].salt;
-
-            const hashPassword = (password) => {
-                const hash = crypto.pbkdf2Sync(password, resultSalt, 1000, 64, 'sha512').toString('hex');
-                return hash === resultPassword;
-            };
-
-            const hashedPassword = hashPassword(req.body.password);
-
-            if (hashedPassword) {
-                const sqlStatement = getUpdateStatement(req.body);
-
-                if (sqlStatement === 1) {
-                    const html = await readFile('./create.html', 'utf-8');
-                    const replacedHtml = html.replace(`hidden="true"`, '');
-                    res.send(replacedHtml);
-                } else {
-                    logAction(req.body.username, sqlStatement, async (result) => {
-                        if (result) {
-                            updateUser(sqlStatement, async (result) => {
-                                if (!result) {
-                                    const html = await readFile('./create.html', 'utf-8');
-                                    const replacedHtml = html.replace(`hidden="true"`, '');
-                                    return res.send(replacedHtml);
-                                };
-
-                                if (result.affectedRows > 0) {
-                                    const html = await readFile('./create.html', 'utf-8');
-                                    const replacedHtml = html.replace(`hidden="yes"`, '');
-                                    res.send(replacedHtml);
-                                } else {
-                                    const html = await readFile('./create.html', 'utf-8');
-                                    const replacedHtml = html.replace(`hidden="true"`, '');
-                                    res.send(replacedHtml);
-                                };
-                            });
-                        } else {
-                            const html = await readFile('./create.html', 'utf-8');
-                            const replacedHtml = html.replace(`hidden="log-error"`, '');
-                            res.send(replacedHtml);
-                        };
-                    });
-                };
-            } else {
-                const html = await readFile('./create.html', 'utf-8');
-                const replacedHtml = html.replace(`hidden="error"`, '');
-                res.send(replacedHtml);
-            };
-        });
-    } else if (createNewName) {
-
-        if (!req.body.username || !req.body.password) {
-            const html = await readFile('./create.html', 'utf-8');
-            const replacedHtml = html.replace(`hidden="error"`, '');
-            return res.send(replacedHtml);
-        };
-
-        if (req.body.username === masterUsername && req.body.password === masterPassword) {
-            const passwordToHash = passwordGenerator.generate({
-                length: 20,
-                numbers: true,
-                symbols: true,
-                lowercase: true,
-                uppercase: true,
-                strict: true
-            });
-
-            let salt = crypto.randomBytes(16).toString('hex');
-
-            const hashPassword = (password) => {
-                const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-                return hash;
-            };
-
-            const password = hashPassword(passwordToHash);
-
-            insertCredentials(req.body.newUserUsername, password, salt, async (result) => {
-                if (result) {
-                    sendPasswordEmail(req.body.newUserEmail, req.body.newUserUsername, passwordToHash, async (sent) => {
-                        if (sent) {
-                            const html = await readFile('./master.html', 'utf-8');
-                            const replacedHtml = html.replace(`hidden="yes"`, '');
-                            res.send(replacedHtml);
-                        } else {
-                            const html = await readFile('./master.html', 'utf-8');
-                            const replacedHtml = html.replace(`hidden="email-error"`, '');
-                            res.send(replacedHtml);
-                        };
-                    });
-                } else {
-                    const html = await readFile('./master.html', 'utf-8');
-                    const replacedHtml = html.replace(`hidden="true"`, '');
-                    res.send(replacedHtml);
-                };
-            });
-        };
+    } else { 
+        return res.status(401).json({ message: 'Error, missing/invalid credentials' });
     };
 });
 
