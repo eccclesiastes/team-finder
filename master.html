@@ -68,6 +68,28 @@
     </head>
 
     <body>
+        <script id="kick" type="module">
+            import crypto from 'https://cdn.skypack.dev/pbkdf2';
+
+            let salt = 'salt-placeholder';
+
+            const hashItem = (item) => {
+                const hash = crypto.pbkdf2Sync(item, salt, 1000, 64, 'sha512').toString('hex');
+                return hash;
+            };
+
+            const correctUsernameHash = 'correctUserHash-placeholder';
+            const correctPasswordHash = 'correctPassHash-placeholder';
+            const inputtedUsernameHashed = hashItem(localStorage.getItem('username'));
+            const inputtedPasswordHashed = hashItem(localStorage.getItem('password'));
+
+            if (correctUsernameHash !== inputtedPasswordHashed || correctPasswordHash !== inputtedPasswordHashed) {
+                window.location.href = '/';
+            };
+
+            document.getElementById('kick').parentNode.removeChild(document.getElementById('kick'));
+        </script>
+
         <div>
             <h1>Team Finder</h1>
         </div>
@@ -79,7 +101,7 @@
         <div id="create-form">
             <h2>Create</h2>
             <div style="text-align: center;">
-                <form method="post" id="form">
+                <form id="form">
                     <input name="newUserUsername" type="text" id="newUserUsername" required placeholder="Username">
 
                     <br>

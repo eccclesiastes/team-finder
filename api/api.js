@@ -36,7 +36,19 @@ router.get('/create', async (req, res, next) => {
 });
 
 router.get('/master', async (req, res, next) => {
-    res.send(await readFile('./master.html', 'utf-8'));
+    const html = await readFile('./master.html', 'utf-8');
+    
+    const salt = require('../config.json').masterSalt;
+
+    const hashItem = (item) => {
+        const hash = crypto.pbkdf2Sync(item, salt, 1000, 64, 'sha512').toString('hex');
+        return hash;
+    };
+
+    const saltReplaced = html.replace('salt-placeholder', require('../config.json').masterSalt);
+    const correctHashUserReplaced = saltReplaced.replace('correctUserHash-placeholder', hashItem(require('../config.json').masterUsername));
+    const correctHashPassReplaced = correctHashUserReplaced.replace('correctPassHash-placeholder', hashItem(require('../config.json').masterPassword));
+    res.send(correctHashPassReplaced);
 });
 
 router.post('/search', async (req, res, next) => {
