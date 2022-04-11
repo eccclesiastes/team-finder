@@ -2,5 +2,6 @@
     "username": "teamfinder@gmail.com",
     "password": "Teamfinder123",
     "masterUsername": "admin",
-    "masterPassword": "admin"
+    "masterPassword": "admin",
+    "masterSalt": "41d90e31cd4b955ad842ddefd9842090"
 }
