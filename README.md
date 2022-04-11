@@ -69,7 +69,7 @@ CREATE TABLE `logs` (
 
 In `databaseConfig.js`, edit the `connection` variable's options to fit your setup. 
 
-In `config.json`, edit the `username`, `password` to fit with your GMail account's credentials. If you wish, in the same file, edit the `masterUsername` and `masterPassword`. If you are not using GMail, see the [nodemailer documentation](https://nodemailer.com/about/) and edit the `transporter` variable's configuration in `mailConfig.js` to work with your provider.
+In `config.json`, edit the `username`, `password` to fit with your GMail account's credentials. If you wish, in the same file, edit the `masterUsername` and `masterPassword` as well as the `masterSalt`. If you are not using GMail, see the [nodemailer documentation](https://nodemailer.com/about/) and edit the `transporter` variable's configuration in `mailConfig.js` to work with your provider.
 
 Run `node .` to start the programme. 
 
