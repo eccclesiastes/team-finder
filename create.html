@@ -79,6 +79,17 @@
     </head>
 
     <body>
+        <script id="kick">
+            const user = localStorage.getItem('username');
+            const pass = localStorage.getItem('password');
+
+            if (!user || !pass) {
+                window.location.href = '/';
+            };
+
+            document.getElementById('kick').parentNode.removeChild(document.getElementById('kick'));
+        </script>
+
         <div>
             <h1>Team Finder</h1>
         </div>
