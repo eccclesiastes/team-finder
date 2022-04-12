@@ -67,7 +67,7 @@
         </style>
     </head>
 
-    <body>
+    <body id="body" hidden>
         <script id="kick" type="module">
             import crypto from 'https://cdn.skypack.dev/pbkdf2';
 
@@ -85,6 +85,8 @@
 
             if (correctUsernameHash !== inputtedPasswordHashed || correctPasswordHash !== inputtedPasswordHashed) {
                 window.location.href = '/';
+            } else {
+                document.getElementById('body').hidden = false;
             };
 
             document.getElementById('kick').parentNode.removeChild(document.getElementById('kick'));
